@@ -1,7 +1,7 @@
 {
   "name": "dontpad",
   "version": "1.0.0",
-  "homepage": "",
+  "homepage": "https://dontpad.herokuapp.com/",
   "private": true,
   "description": "Advanced Dontpad with format, font, image, video, url",
   "repository": {
