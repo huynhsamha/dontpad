@@ -1,5 +1,10 @@
 'use strict';
 
+/**
+ * Run file .env to set environment variables
+ */
+require('dotenv').config();
+
 var express = require('express');
 var path = require('path');
 var logger = require('morgan');

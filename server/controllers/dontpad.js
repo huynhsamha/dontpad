@@ -4,13 +4,12 @@ var Dontpad = mongoose.model('Dontpad');
 
 function findOneByUrl(url) {
   return new Promise((resolve, reject) => {
-    Dontpad.findOne({ url }, { url: true, value: true })
-      .exec((err, dontpad) => {
-        if (err) {
-          return reject(err);
-        }
-        return resolve(dontpad);
-      });
+    Dontpad.findOne({ url }).exec((err, dontpad) => {
+      if (err) {
+        return reject(err);
+      }
+      return resolve(dontpad);
+    });
   });
 }
 

@@ -31,7 +31,7 @@ class App extends Component {
     const modelUrl = window.location.pathname;
     DbService.findModel(modelUrl).then((res) => {
       console.log(res);
-      this.setState({ model: res.value });
+      this.setState({ model: res.value || '' });
     }).catch(err => console.log(err));
   }
 
