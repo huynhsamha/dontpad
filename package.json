@@ -1,7 +1,13 @@
 {
   "name": "dontpad",
   "version": "1.0.0",
+  "homepage": "",
   "private": true,
+  "description": "Advanced Dontpad with format, font, image, video, url",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/huynhsamha/dontpad.git"
+  },
   "scripts": {
     "start": "npm-run-all -p watch-css start-js",
     "build": "npm-run-all build-css build-js",
@@ -40,9 +46,30 @@
     "eslint-plugin-jsx-a11y": "^6.0.3",
     "eslint-plugin-react": "^7.6.1"
   },
+  "author": {
+    "name": "huynhsamha",
+    "email": "huynhsamha@gmail.com",
+    "url": "https://github.com/huynhsamha"
+  },
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/huynhsamha/dontpad/issues"
+  },
   "engines": {
     "node": ">=6.10.0",
     "npm": ">=3.10.8"
   },
-  "keywords": []
+  "contributors": [
+    "huynhsamha"
+  ],
+  "icon": "./public/favicon.ico",
+  "keywords": [
+    "dontpad",
+    "advanced dontpad",
+    "docs",
+    "react",
+    "image",
+    "video",
+    "url"
+  ]
 }
