@@ -5,21 +5,27 @@ export default class DbService {
   static baseUrl() { return Env.baseUrl; }
   static parseUrl(url) { return DbService.baseUrl() + url; }
 
-  static getItems() {
-    const url = DbService.parseUrl('/api/items');
-    console.log(url);
-    return fetch(url).then(res => res.json());
-  }
-
-  static addItem(item) {
-    const url = DbService.parseUrl('/api/items');
+  static findModel(modelUrl) {
+    const url = DbService.parseUrl('/api/model');
     return fetch(url, {
       method: 'POST',
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify(item)
+      body: JSON.stringify({ url: modelUrl })
+    }).then(res => res.json());
+  }
+
+  static updateModel(modelUrl, modelValue) {
+    const url = DbService.parseUrl('/api/model');
+    return fetch(url, {
+      method: 'PUT',
+      headers: new Headers({
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      }),
+      body: JSON.stringify({ url: modelUrl, value: modelValue })
     }).then(res => res.json());
   }
 }

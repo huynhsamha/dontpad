@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import FroalaEditor from 'react-froala-wysiwyg';
 
+import DbService from '../../services/db-service';
+
 const $ = window.jQuery;
 
 class Editor extends Component {
@@ -9,7 +11,10 @@ class Editor extends Component {
   constructor(props) {
     super(props);
 
-    this.state = {};
+    this.state = {
+      showAlert: false,
+      textAlert: 'Saved'
+    };
   }
 
   onClickView = () => {
@@ -18,6 +23,20 @@ class Editor extends Component {
 
   handleChangeModel = (model) => {
     this.props.onChange(model);
+  }
+
+  saveModel = () => {
+    const modelUrl = window.location.pathname;
+    DbService.updateModel(modelUrl, this.props.model)
+      .then((res) => {
+        console.log(res);
+        const textAlert = res.message || 'Saved';
+        this.setState({ showAlert: true, textAlert });
+        setTimeout(() => this.setState({ showAlert: false }), 2000);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   }
 
   render() {
@@ -62,8 +81,19 @@ class Editor extends Component {
         />
 
         <button className="btn-fixed" onClick={this.onClickView}>
-          <span><i className="fa fa-file-text-o" /></span>
+          <span><i className="fa fa-eye" /></span>
         </button>
+
+        <button
+          className="btn-fixed" style={{ right: 80 }}
+          onClick={this.saveModel}
+        >
+          <span><i className="fa fa-save" /></span>
+        </button>
+
+        <div className={`alert ${this.state.showAlert ? 'show' : ''}`}>
+          <i className="fa fa-info-circle" />{this.state.textAlert}
+        </div>
       </div>
     );
   }

@@ -4,6 +4,8 @@ import './App.css';
 import Editor from './editor/Editor';
 import Viewer from './viewer/Viewer';
 
+import DbService from '../services/db-service';
+
 class App extends Component {
 
   constructor(props) {
@@ -11,8 +13,10 @@ class App extends Component {
 
     this.state = {
       model: '',
-      viewPage: true
+      viewPage: false
     };
+
+    this.findModel();
   }
 
   onChangeModel = (model) => {
@@ -21,6 +25,14 @@ class App extends Component {
 
   toggleView = (viewPage) => {
     this.setState({ viewPage });
+  }
+
+  findModel = () => {
+    const modelUrl = window.location.pathname;
+    DbService.findModel(modelUrl).then((res) => {
+      console.log(res);
+      this.setState({ model: res.value });
+    }).catch(err => console.log(err));
   }
 
   render() {

@@ -7,20 +7,36 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var http = require('http');
 var cors = require('cors');
+var helmet = require('helmet');
+var compression = require('compression');
+var mongoose = require('mongoose');
+var dbConfig = require('./config/db');
+
+mongoose.connect(dbConfig.uriMongo, {}, (err) => {
+  if (err) {
+    console.log(err);
+  } else {
+    console.log('Connect mongo ok');
+  }
+});
+
+require('./server/models/dontpad');
 
 var app = express();
 
 app.use(logger('dev'));
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'build'))); // use for deploy production with build/
-
+app.use(express.static(path.join(__dirname, 'build')));
+// use for deploy production with build/
 app.use(cors());
+app.use(helmet());
+app.use(compression());
 
 var route = require('./server/routes');
 
-app.use(route);
+app.use('/api', route);
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {
@@ -37,7 +53,7 @@ app.use((err, req, res, next) => {
 
   // render the error page
   res.status(err.status || 500);
-  res.render('error');
+  res.send(err);
 });
 
 var port = process.env.PORT || '4200';
