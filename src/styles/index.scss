@@ -1,0 +1,29 @@
+@import './variables.scss';
+@import './mixins.scss';
+@import './classes.scss';
+
+/**
+|--------------------------------------------------
+| You can style your app here
+|--------------------------------------------------
+*/
+
+html,
+body {
+    width: 100% !important;
+    height: 100% !important;
+		font-size: $font-size;
+		line-height: initial;
+}
+
+body {
+    margin: 0px;
+    padding: 0px;
+		font-family: $font-family-Quicksand;
+		background-color: #ffffff;
+}
+
+h1, h2, h3, h4, h5, h6 {
+	font-weight: 900;
+	font-family: $font-family-Roboto;
+}

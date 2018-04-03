@@ -1,0 +1,35 @@
+.App {
+	height: 100%;
+	width: 100%;
+}
+
+.btn-fixed {
+	position: fixed;
+	top: 15px;
+	right: 15px;
+	$size: 50px;
+	height: $size;
+	width: $size;
+	z-index: 9999;
+	border-radius: 50%;
+	$color: #11a24b;
+	color: white;
+	background-color: $color;
+	border: 3px solid $color;
+	outline: none;
+	font-size: 22px;
+	letter-spacing: 0.8px;
+	font-weight: 900;
+	cursor: pointer;
+	transition-duration: 0.2s;
+	&:hover {
+		background-color: white;
+		color: $color;
+	}
+	i {
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%, -50%)
+	}
+}

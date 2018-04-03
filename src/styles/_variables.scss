@@ -1,0 +1,45 @@
+/**
+|--------------------------------------------------
+| You can add and/or custom your global variable here
+|--------------------------------------------------
+*/
+
+// FONT SIZE GLOBAL
+$font-size: 16px;
+$font-size-extra-small: 0.7rem;
+$font-size-small: 0.8rem;
+$font-size-normal: 1rem;
+$font-size-medium: 1.2rem;
+$font-size-large: 1.5rem;
+$font-size-extra-large: 2rem;
+
+// FONT FAMILY GLOBAL
+$font-family-Quicksand: 'Quicksand', sans-serif;
+$font-family-Roboto: 'Roboto', sans-serif;
+
+// COLOR GLOBAL
+$red: #da311b;
+$orange: rgb(224, 110, 16);
+$purple: #605ca8;
+$blue: #0073b7;
+$green: #00a65a;
+$navy: #001F3F;
+
+$color-primary: #045f46;
+$color-success: $green;
+$color-info: $blue;
+$color-warning: $orange;
+$color-dander: $red;
+
+// Z INDEX
+$z-index-min: 0;
+$z-index-max: 99999;
+$z-index-1: $z-index-min + 100;
+$z-index-2: $z-index-min + 200;
+$z-index-3: $z-index-min + 300;
+$z-index-4: $z-index-min + 400;
+$z-index-5: $z-index-min + 500;
+$z-index-6: $z-index-min + 600;
+$z-index-7: $z-index-min + 700;
+$z-index-8: $z-index-min + 800;
+$z-index-9: $z-index-min + 900;
