@@ -2,8 +2,6 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import FroalaEditorView from 'react-froala-wysiwyg/FroalaEditorView';
 
-const $ = window.jQuery;
-
 class Viewer extends Component {
 
   onClickEdit = () => {

@@ -3,9 +3,9 @@ import envProd from './env.production';
 
 let Env;
 
-if (process.env.REACT_APP_ENV == 'development') {
+if (process.env.REACT_APP_ENV === 'development') {
   Env = envDev;
-} else if (process.env.REACT_APP_ENV == 'production') {
+} else if (process.env.REACT_APP_ENV === 'production') {
   Env = envProd;
 }
 

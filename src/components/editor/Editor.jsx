@@ -4,8 +4,6 @@ import FroalaEditor from 'react-froala-wysiwyg';
 
 import DbService from '../../services/db-service';
 
-const $ = window.jQuery;
-
 class Editor extends Component {
 
   constructor(props) {
