@@ -2,19 +2,22 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import FroalaEditor from 'react-froala-wysiwyg';
 
+import './Editor.css';
+
 class Editor extends Component {
 
   constructor(props) {
     super(props);
 
-    this.state = {
-      showAlert: false,
-      textAlert: 'Saved'
-    };
+    this.state = {};
   }
 
   onClickView = () => {
     this.props.toggleView(true);
+  }
+
+  onChangeTitle = (event) => {
+    this.props.onChangeTitle(event.target.value);
   }
 
   handleChangeModel = (model) => {
@@ -29,8 +32,9 @@ class Editor extends Component {
     const config = {
       placeholderText: 'Edit Your Content Here!',
       charCounterCount: false,
+      theme: 'custom',
       indentMargin: 10,
-      heightMin: 550,
+      heightMin: 600,
       fontFamily: {
         'Roboto, sans-serif': 'Roboto',
         'Quicksand, sans-serif': 'Quicksand',
@@ -47,29 +51,59 @@ class Editor extends Component {
       toolbarButtons: [
         'bold', 'italic', 'underline', 'strikeThrough', 'subscript', 'superscript', '|',
         'fontFamily', 'fontSize', 'color', 'paragraphStyle', '|',
-        'paragraphFormat', 'align', 'formatOL', 'formatUL', 'outdent', 'indent', 'quote', '-',
+        'paragraphFormat', 'align', 'formatOL', 'formatUL', 'outdent', 'indent', 'quote',
         'insertLink', 'insertImage', 'insertVideo', 'embedly', 'insertFile', 'insertTable', '|',
         'emoticons', 'specialCharacters', 'insertHR', 'selectAll', 'clearFormatting', '|',
         'print', 'spellChecker', 'help', 'html', '|', 'undo', 'redo'
       ]
     };
 
+    const {
+      stateModel, show, model, title
+    } = this.props;
+
     return (
-      <div className="container" style={{ display: this.props.show ? 'block' : 'none' }}>
+      <div className="Editor" style={{ display: show ? 'block' : 'none' }}>
+
+        <div className="header">
+          <div className="container-fluid">
+            <div className="row">
+
+              <div className="col-12 col-lg-4 col-md-4">
+                <span className="logo">
+                  <i className="fa fa-file-text-o" />
+                </span>
+                <span className="title">
+                  <input
+                    type="text" placeholder="Untitled document" onChange={this.onChangeTitle}
+                    value={title}
+                  />
+                </span>
+              </div>
+
+              <div className="col-12 col-lg-4 col-md-4">
+                <div className="state">
+                  {stateModel}
+                </div>
+              </div>
+
+              <div className="col-12 col-lg-4 col-md-4">
+                <div className="options">
+                  <button className="btn">
+                    <span><i className="fa fa-html5" />View Page</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
         <FroalaEditor
           tag="textarea"
-          model={this.props.model}
+          model={model}
           config={config}
           onModelChange={this.handleChangeModel}
         />
-
-        <button className="btn-fixed" onClick={this.onClickView}>
-          <span><i className="fa fa-eye" /></span>
-        </button>
-
-        <div className={`alert ${this.state.showAlert ? 'show' : ''}`}>
-          <i className="fa fa-info-circle" />{this.state.textAlert}
-        </div>
       </div>
     );
   }
@@ -79,14 +113,19 @@ Editor.propTypes = {
   model: PropTypes.string,
   show: PropTypes.bool,
   onChange: PropTypes.func,
-  toggleView: PropTypes.func
+  toggleView: PropTypes.func,
+  onChangeTitle: PropTypes.func,
+  stateModel: PropTypes.string.isRequired,
+  title: PropTypes.string
 };
 
 Editor.defaultProps = {
   model: '',
   show: false,
+  title: '',
   onChange: () => { },
-  toggleView: () => { }
+  toggleView: () => { },
+  onChangeTitle: () => { }
 };
 
 export default Editor;

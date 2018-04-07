@@ -10,7 +10,7 @@ class Viewer extends Component {
 
   render() {
     return (
-      <div className="container" style={{ display: this.props.show ? 'block' : 'none' }}>
+      <div className="" style={{ display: this.props.show ? 'block' : 'none' }}>
         <FroalaEditorView
           model={this.props.model}
         />
