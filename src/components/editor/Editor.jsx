@@ -2,8 +2,6 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import FroalaEditor from 'react-froala-wysiwyg';
 
-import DbService from '../../services/db-service';
-
 class Editor extends Component {
 
   constructor(props) {
@@ -23,20 +21,6 @@ class Editor extends Component {
     this.props.onChange(model);
   }
 
-  saveModel = () => {
-    const modelUrl = window.location.pathname;
-    DbService.updateModel(modelUrl, this.props.model)
-      .then((res) => {
-        console.log(res);
-        const textAlert = res.message || 'Saved';
-        this.setState({ showAlert: true, textAlert });
-        setTimeout(() => this.setState({ showAlert: false }), 2000);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }
-
   render() {
     /**
      * Configure for Frola Editor
@@ -50,6 +34,7 @@ class Editor extends Component {
       fontFamily: {
         'Roboto, sans-serif': 'Roboto',
         'Quicksand, sans-serif': 'Quicksand',
+        'Nunito, sans-serif': 'Nunito',
         'Open Sans, sans-serif': 'Open Sans',
         'Open Sans Condensed, sans-serif': 'Open Sans Condensed',
         'Arial,Helvetica,sans-serif': 'Arial',
@@ -80,13 +65,6 @@ class Editor extends Component {
 
         <button className="btn-fixed" onClick={this.onClickView}>
           <span><i className="fa fa-eye" /></span>
-        </button>
-
-        <button
-          className="btn-fixed" style={{ right: 80 }}
-          onClick={this.saveModel}
-        >
-          <span><i className="fa fa-save" /></span>
         </button>
 
         <div className={`alert ${this.state.showAlert ? 'show' : ''}`}>
