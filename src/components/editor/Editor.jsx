@@ -20,8 +20,8 @@ class Editor extends Component {
     this.props.onChangeTitle(event.target.value);
   }
 
-  handleChangeModel = (model) => {
-    this.props.onChange(model);
+  onChangeModel = (model) => {
+    this.props.onChangeModel(model);
   }
 
   render() {
@@ -54,7 +54,7 @@ class Editor extends Component {
         'paragraphFormat', 'align', 'formatOL', 'formatUL', 'outdent', 'indent', 'quote',
         'insertLink', 'insertImage', 'insertVideo', 'embedly', 'insertFile', 'insertTable', '|',
         'emoticons', 'specialCharacters', 'insertHR', 'selectAll', 'clearFormatting', '|',
-        'print', 'spellChecker', 'help', 'html', '|', 'undo', 'redo'
+        'print', 'spellChecker', 'help', 'html', '|', 'undo', 'redo', '|', 'fullscreen'
       ]
     };
 
@@ -93,7 +93,7 @@ class Editor extends Component {
                     usersInRoom > 0 ?
                       <span className="badge">
                         <span className="number">{usersInRoom}</span>
-                        <span className="text">users online</span>
+                        <span className="text">other{usersInRoom > 1 ? 's' : ''} online</span>
                       </span>
                       :
                       ''
@@ -111,7 +111,7 @@ class Editor extends Component {
           tag="textarea"
           model={model}
           config={config}
-          onModelChange={this.handleChangeModel}
+          onModelChange={this.onChangeModel}
         />
       </div>
     );
@@ -121,7 +121,7 @@ class Editor extends Component {
 Editor.propTypes = {
   model: PropTypes.string,
   show: PropTypes.bool,
-  onChange: PropTypes.func,
+  onChangeModel: PropTypes.func,
   toggleView: PropTypes.func,
   onChangeTitle: PropTypes.func,
   stateModel: PropTypes.string.isRequired,
@@ -134,7 +134,7 @@ Editor.defaultProps = {
   show: false,
   title: '',
   usersInRoom: 0,
-  onChange: () => { },
+  onChangeModel: () => { },
   toggleView: () => { },
   onChangeTitle: () => { }
 };

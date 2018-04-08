@@ -2,7 +2,7 @@
 
 .Navigator {
 	.wrapper {
-		padding-top: 50px;
+		padding-top: 10px;
 		text-align: center;
 
 		h1 {
@@ -16,14 +16,19 @@
 			display: inline-block;
 			padding: 8px 30px;
 			border-radius: 35px;
+			$mar-x: 5px;
 			.text-fixed {
+				margin-top: $mar-x;
+				margin-bottom: $mar-x;
 				margin-right: 5px;
 			}
 			input.inp {
+				margin-top: $mar-x;
+				margin-bottom: $mar-x;
 				outline: none;
 				border: 1px solid $color-success;
 				min-width: 80px;
-				max-width: 200px;
+				max-width: 100%;
 				height: 100%;
 				padding: 5px 15px;
 				font-size: 16px;
@@ -34,6 +39,8 @@
 				}
 			}
 			button {
+				margin-top: $mar-x;
+				margin-bottom: $mar-x;
 				margin-left: 5px;
 				cursor: pointer;
 				background-color: $color-success;
@@ -43,6 +50,48 @@
 				font-size: 18px;
 				font-weight: 900;
 				padding: 3px 10px;
+			}
+		}
+
+		.note {
+			ul {
+				margin-top: 50px;
+				line-height: 1;
+				text-align: justify;
+			}
+		}
+
+		@media screen and (max-width: 780px) {
+			.input-group {
+				width: 100%;
+				text-align: center;
+				.text-fixed, input, button {
+					display: block;
+					width: 100%;
+				}
+			}
+		}
+
+		@media screen and (max-width: 425px) {
+			.title {
+				font-size: 30px;
+			}
+			.note {
+				ul {
+					font-size: 14px !important;
+					h3 {
+						font-weight: 400;
+					}
+				}
+			}
+
+			.input-group {
+				font-size: 16px;
+				padding-top: 20px;
+				padding-bottom: 20px;
+				.text-fixed {
+					overflow: auto;
+				}
 			}
 		}
 	}

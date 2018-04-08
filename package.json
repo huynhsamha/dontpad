@@ -60,8 +60,17 @@
     "advanced dontpad",
     "docs",
     "react",
+    "heroku",
+    "mlab",
+    "mongodb",
+    "mongo",
+    "socket.io",
+    "scoket",
+    "link",
     "image",
     "video",
-    "url"
+    "url",
+    "format",
+    "realtime"
   ]
 }

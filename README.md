@@ -1,2 +1,2 @@
 # dontpad
-Advanced Dontpad - React
+Advanced Dontpad

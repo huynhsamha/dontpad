@@ -10,6 +10,7 @@ class Navigator extends Component {
     this.state = {
       path: ''
     };
+
   }
 
   onChangePath = (event) => {
@@ -36,25 +37,34 @@ class Navigator extends Component {
             <div className="col-lg-12">
               <div className="wrapper">
 
-                <h1>Advanced Dontpad</h1>
+                <h1 className="title">Advanced Dontpad</h1>
 
                 <div className="input-group">
-                  <span className="text-fixed d-block d-lg-inline d-md-inline">https://dontpad.herokuapp.com/</span>
-                  <input className="inp" type="text" onChange={this.onChangePath} onKeyPress={this.onKeyPress} />
-                  <button onClick={this.onClickNavigator} >
+                  <span className="text-fixed">
+                    https://dontpad.herokuapp.com/
+                  </span>
+                  <input
+                    className="inp"
+                    type="text" onChange={this.onChangePath} onKeyPress={this.onKeyPress}
+                  />
+                  <button
+                    onClick={this.onClickNavigator}
+                  >
                     <span><i className="fa fa-external-link" /></span>
                   </button>
                 </div>
 
-                <div className="col-12 col-lg-8 offset-2">
-                  <ul style={{ textAlign: 'left', listStyle: 'none', marginTop: '50px' }}>
-                    <li><h3>Don&apos;t login</h3></li>
-                    <li><h3>Format font, text, color, paragraph</h3></li>
-                    <li><h3>Insert link, image, video, file, symbol</h3></li>
-                    <li><h3>HTML Code, Preview page html, Print</h3></li>
-                    <li><h3>Realtime, multiple users connect</h3></li>
-                    <li><h3>Auto save on changes</h3></li>
-                    <li><h3>Private and Security</h3></li>
+                <div className="col-12 col-lg-8 offset-lg-2 note">
+                  <ul>
+                    <li><h3>Don&apos;t login, just use a URL</h3></li>
+                    <li><h3>Don&apos;t save, any changes is auto-saved</h3></li>
+                    <li><h3>Format font-style, font-family, font-size, color</h3></li>
+                    <li><h3>Format paragraph, headings, code, align, list</h3></li>
+                    <li><h3>Insert link, image, table, video, file, symbol</h3></li>
+                    <li><h3>Support familiar and utility shortcut</h3></li>
+                    <li><h3>Support render to HTML code, Preview and Print</h3></li>
+                    <li><h3>Realtime, don&apos;t refresh page when your friends change</h3></li>
+                    <li><h3>Private, Security and No Advertising</h3></li>
                   </ul>
                 </div>
               </div>
