@@ -1,0 +1,49 @@
+@import '../../styles/_variables.scss';
+
+.Navigator {
+	.wrapper {
+		padding-top: 50px;
+		text-align: center;
+
+		h1 {
+			font-size: 3.5rem;
+		}
+
+		.input-group {
+			font-size: 18px;
+			background-color: $color-success;
+			color: white;
+			display: inline-block;
+			padding: 8px 30px;
+			border-radius: 35px;
+			.text-fixed {
+				margin-right: 5px;
+			}
+			input.inp {
+				outline: none;
+				border: 1px solid $color-success;
+				min-width: 80px;
+				max-width: 200px;
+				height: 100%;
+				padding: 5px 15px;
+				font-size: 16px;
+				color: $gray;
+				border-radius: 25px;
+				&:placeholder {
+					color: white;
+				}
+			}
+			button {
+				margin-left: 5px;
+				cursor: pointer;
+				background-color: $color-success;
+				color: white;
+				outline: none;
+				border: none;
+				font-size: 18px;
+				font-weight: 900;
+				padding: 3px 10px;
+			}
+		}
+	}
+}

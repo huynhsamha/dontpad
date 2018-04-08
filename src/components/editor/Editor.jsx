@@ -59,7 +59,7 @@ class Editor extends Component {
     };
 
     const {
-      stateModel, show, model, title
+      usersInRoom, stateModel, show, model, title
     } = this.props;
 
     return (
@@ -89,7 +89,16 @@ class Editor extends Component {
 
               <div className="col-12 col-lg-4 col-md-4">
                 <div className="options">
-                  <button className="btn">
+                  {
+                    usersInRoom > 0 ?
+                      <span className="badge">
+                        <span className="number">{usersInRoom}</span>
+                        <span className="text">users online</span>
+                      </span>
+                      :
+                      ''
+                  }
+                  <button className="btn" onClick={this.onClickView}>
                     <span><i className="fa fa-html5" />View Page</span>
                   </button>
                 </div>
@@ -116,13 +125,15 @@ Editor.propTypes = {
   toggleView: PropTypes.func,
   onChangeTitle: PropTypes.func,
   stateModel: PropTypes.string.isRequired,
-  title: PropTypes.string
+  title: PropTypes.string,
+  usersInRoom: PropTypes.number
 };
 
 Editor.defaultProps = {
   model: '',
   show: false,
   title: '',
+  usersInRoom: 0,
   onChange: () => { },
   toggleView: () => { },
   onChangeTitle: () => { }

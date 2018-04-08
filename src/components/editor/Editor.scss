@@ -1,10 +1,11 @@
 @import '../../styles/_variables.scss';
+$padtop: 6px;
+
 .Editor {
     .header {
         width: 96%;
         margin: auto;
-        $gray: #606060;
-        padding: 6px 0px;
+        padding: $padtop 0px;
         width: 100%;
         .logo {
             margin-right: 20px;
@@ -30,7 +31,7 @@
         .state {
             color: $gray;
             height: 100%;
-            padding-top: 6px;
+            padding-top: $padtop;
         }
         .options {
             text-align: right;
@@ -52,6 +53,24 @@
                 &:hover {
                     background-color: white;
                     color: $color-success;
+                }
+            }
+            .badge {
+                margin-right: 25px;
+                height: 100%;
+                font-size: 16px;
+                text-align: center;
+                span.number {
+                    margin-right: 4px;
+                    background-color: $color-success;
+                    color: white;
+                    border-radius: 50%;
+                    padding: 6px 12px;
+                    font-weight: 900;
+                }
+                span.text {
+                    color: $gray;
+                    font-style: italic;
                 }
             }
         }

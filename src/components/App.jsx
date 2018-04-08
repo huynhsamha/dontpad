@@ -3,6 +3,7 @@ import io from 'socket.io-client';
 
 import Editor from './editor/Editor';
 import Viewer from './viewer/Viewer';
+import Navigator from './navigator/Navigator';
 
 import './App.css';
 
@@ -11,24 +12,34 @@ class App extends Component {
   constructor(props) {
     super(props);
 
-    this.state = {
-      model: '',
-      title: '',
-      viewPage: false,
-      stateModel: 'All changes saved'
-    };
-
     this.UNTITLED_DOCUMENT = 'Untitled document';
     this.ALL_CHAGNES_SAVED = 'All changes saved';
     this.ERROR = 'Error, please reconnect to try again';
 
+    this.state = {
+      model: '',
+      title: '',
+      viewPage: false,
+      navigator: false,
+      usersInRoom: 0,
+      stateModel: ''
+    };
+
     document.title = this.UNTITLED_DOCUMENT;
+
+    if (window.location.pathname === '/') {
+      this.state.navigator = true;
+    }
   }
 
   componentWillMount() {
     this.room = window.location.pathname;
     this.socket = io();
     this.socket.emit('CLIENT_JOIN_ROOM', this.room);
+
+    this.socket.on('SERVER_USER_IN_ROOM_CHANGED', (usersInRoom) => {
+      this.setState({ usersInRoom });
+    });
 
     this.socket.on('SERVER_SEND_DATA_IN_ROOM', (data) => {
       const { title, model } = data;
@@ -48,7 +59,7 @@ class App extends Component {
       this.setState({ stateModel: this.ALL_CHAGNES_SAVED });
       setTimeout(() => {
         this.setState({ stateModel: '' });
-      }, 3000);
+      }, 5000);
     });
 
     this.socket.on('SERVER_ERROR', () => {
@@ -81,18 +92,20 @@ class App extends Component {
 
   render() {
     const {
-      viewPage, model, stateModel, title
+      viewPage, model, stateModel, title, usersInRoom, navigator
     } = this.state;
 
     return (
       <div className="App">
-        <Viewer show={viewPage} model={model} toggleView={this.toggleView} />
+        <Navigator show={navigator} />
+        <Viewer show={!navigator && viewPage} model={model} toggleView={this.toggleView} />
         <Editor
-          show={!viewPage} model={model} onChange={this.onChangeModel}
+          show={!navigator && !viewPage} model={model} onChange={this.onChangeModel}
           toggleView={this.toggleView}
           onChangeTitle={this.onChangeTitle}
           stateModel={stateModel}
           title={title}
+          usersInRoom={usersInRoom}
         />
       </div>
     );

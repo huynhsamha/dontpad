@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import FroalaEditorView from 'react-froala-wysiwyg/FroalaEditorView';
 
+import './Viewer.css';
+
 class Viewer extends Component {
 
   onClickEdit = () => {
@@ -10,11 +12,13 @@ class Viewer extends Component {
 
   render() {
     return (
-      <div className="" style={{ display: this.props.show ? 'block' : 'none' }}>
-        <FroalaEditorView
-          model={this.props.model}
-        />
-        <button className="btn-fixed" onClick={this.onClickEdit}>
+      <div className="Viewer" style={{ display: this.props.show ? 'block' : 'none' }}>
+        <div className="wrapper-view">
+          <FroalaEditorView
+            model={this.props.model}
+          />
+        </div>
+        <button className="btn btn-fixed" onClick={this.onClickEdit}>
           <span><i className="fa fa-edit" /></span>
         </button>
       </div>
