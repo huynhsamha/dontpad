@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "homepage": "https://dontpad.herokuapp.com/",
   "private": true,
-  "description": "Advanced Dontpad with format, font, image, video, url",
+  "description": "Advanced Dontpad - Editor online without identity",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/huynhsamha/dontpad.git"
