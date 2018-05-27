@@ -5,6 +5,9 @@ export default class UtilityDateTime {
     const current = Date.now();
     const duration = current - lasted;
     const seconds = Math.floor(duration / 1000);
+    if (seconds == 0) {
+      return 'Welcome to dontpad';
+    }
     if (seconds < 60) {
       return `Last edit was in ${seconds} second${seconds > 1 ? 's' : ''} ago`;
     }

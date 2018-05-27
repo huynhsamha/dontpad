@@ -1,8 +1,8 @@
 @import '../../styles/_variables.scss';
 $padtop: 6px;
-
 .Editor {
     .header {
+        background-color: white;
         width: 96%;
         margin: auto;
         padding: $padtop 0px;
@@ -52,7 +52,7 @@ $padtop: 6px;
                 }
                 &:hover {
                     background-color: white;
-                    color: $color-success;
+										color: $color-success;
                 }
             }
             .badge {
@@ -74,5 +74,9 @@ $padtop: 6px;
                 }
             }
         }
-    }
+		}
+
+		.editor {
+			line-height: 10px;
+		}
 }

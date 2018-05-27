@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 import io from 'socket.io-client';
 
+import './App.css';
+
 import Editor from './editor/Editor';
 import Viewer from './viewer/Viewer';
 import Navigator from './navigator/Navigator';
 
 import UtilityDateTime from '../services/UtilityDateTime';
-
-import './App.css';
 
 class App extends Component {
 
@@ -119,7 +119,7 @@ class App extends Component {
       return;
     }
     document.title = title || this.UNTITLED_DOCUMENT;
-    this.setState({ title });
+    if (this.state.title !== document.title) this.setState({ title });
   }
 
   updateState = (createdAt, updatedAt) => {

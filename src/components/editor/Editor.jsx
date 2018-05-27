@@ -107,12 +107,14 @@ class Editor extends Component {
           </div>
         </div>
 
-        <FroalaEditor
-          tag="textarea"
-          model={model}
-          config={config}
-          onModelChange={this.onChangeModel}
-        />
+        <div className="editor">
+          <FroalaEditor
+            tag="textarea"
+            model={model}
+            config={config}
+            onModelChange={this.onChangeModel}
+          />
+        </div>
       </div>
     );
   }

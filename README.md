@@ -1,12 +1,15 @@
 # dontpad
 Advanced Dontpad - Editor online without identity
 
+
 Deploy on Heroku App: [https://dontpad.herokuapp.com/](https://dontpad.herokuapp.com/)
 
-This repo is only front-end for website, that using ReactJS. 
-The back-end using NodeJS is deployed on heroku.
+Some pages demo:
++ [https://dontpad.herokuapp.com/github.com](https://dontpad.herokuapp.com/github.com)
++ [https://dontpad.herokuapp.com/python](https://dontpad.herokuapp.com/python)
 
-## Features
+
+### Features
 + Don't login, just use a URL
 + Don't save, any changes is auto-saved
 + Format font-style, font-family, font-size, color
@@ -18,22 +21,14 @@ The back-end using NodeJS is deployed on heroku.
 + Private, Security and No Advertising
 
 
-## Keywords
-ReactJS, NodeJS, Socket.IO, MongoDB, Heroku, Mlab
+### Front-End Platforms
+Using ReactJS, Socket.IO (realtime)
 
-## Front-End
-Using ReactJS, Socket.IO
+### Back-end Platforms
+Using NodeJS, Socket.IO (realtime)
 
-## Back-end
-Using NodeJS, Socket.IO
+### Database and Deployment
+Using Heroku (Host, Domain), MongoDB (Database), Mlab (Cloud)
 
-## Database and Cloud
-Using MongoDB, Mlab
-
-## Deploy and Cloud
-Using Heroku, Mlab
-
-
-## Website
-
-[https://dontpad.herokuapp.com/](https://dontpad.herokuapp.com/)
+### Quickstart
++ Clone source code to your local
