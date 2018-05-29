@@ -71,11 +71,53 @@ Change the URI Mongo for your production
 
 
 #### Testing
-Run server nodeJS at port 4200 by
+At root of project, run server nodeJS at port 4200 by
 ```bash
+### build frontend reactjs
+npm run build
+# or
+yarn build
+
+### add directory build to server
+cp build/ ./server/ -r
+
+### start server nodejs
 cd server
 npm start
 # or 
 yarn start
 ```
 On your browser, open localhost:4200 to view the dotnpad
+
+
+### Deploy Heroku
+#### Configure on Heroku
++ Login or sign up new account on heroku
++ Add new application
++ At local, create new directory for heroku
++ Copy directory server to the above directory
++ Remove `.git` in new directory
++ At new directory, initialize new git by `git init`
++ At heroku, create new git for app
++ Install heroku at local machine (if you haven't done yet)
++ Login heroku account at local machine: `heroku login` (if you haven't done yet)
++ Remote local to heroku by `git remote add heroku [your git url]`
+
+#### Configure database MongoDB on Mlab
++ Login or sign up new account on Mlab
++ Create new database
++ In the options (collections, users, ...) in tabs at new database, choose option users 
++ Create a new user with difficult password
++ Get uri mongo on mlab and change `<dbuser>` and `<dbpassword>` with new user created.
++ Copy the uri to file `.env` at local directory
++ Now you can commit and deploy to heroku
+
+#### Commit and Deploy
++ Commit all changes and deploy to heroku:
+```bash
+git status
+git add -A
+git commit -m "first deploy"
+git push heroku master
+```
++ Now, you can open the herokuapp to view your achievement.
