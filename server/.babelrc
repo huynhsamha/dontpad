@@ -1,0 +1,7 @@
+{
+    "presets": ["es2015", "es2017"],
+    "plugins": [
+        "dynamic-import-node",
+        "syntax-dynamic-import"
+    ]
+}
