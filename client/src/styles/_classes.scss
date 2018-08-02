@@ -1,0 +1,45 @@
+/**
+|--------------------------------------------------
+| You can add or/and custom your global classes here
+|--------------------------------------------------
+*/
+
+.fontNunito {
+	font-family: $font-family-Nunito;
+}
+
+.fontExtraSmall {
+	font-size: $font-size-extra-small;
+}
+
+.fontSmall {
+	font-size: $font-size-small;
+}
+
+.fontNormal {
+	font-size: $font-size-normal;
+}
+
+.fontMedium {
+	font-size: $font-size-medium;
+}
+
+.fontLarge {
+	font-size: $font-size-large;
+}
+
+.fontExtraLarge {
+	font-size: $font-size-extra-large;
+}
+
+.cursorPointer {
+	cursor: pointer;
+}
+
+.cursorNotAllowed {
+	cursor: not-allowed
+}
+
+.cursorCrosshair {
+	cursor: crosshair;
+}

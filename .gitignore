@@ -73,4 +73,4 @@ yarn-debug.log*
 yarn-error.log*
 
 # auto generated files (sass, less, ...)
-src/**/*.css
+client/src/**/*.css

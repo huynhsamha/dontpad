@@ -1,0 +1,14 @@
+.ShareButtons {
+	margin-top: 50px;
+	text-align: center;
+	.share-button {
+		display: inline-block;
+		margin: 8px;
+		cursor: pointer;
+		outline: none;
+		transition: cubic-bezier(0.075, 0.82, 0.165, 1)  0.2s;
+		&:hover {
+			opacity: 0.8;
+		}
+	}
+}

@@ -4,3 +4,5 @@ dist/*
 dll/*
 build/*
 public/lib/*
+vendors/*
+lib/*
