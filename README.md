@@ -38,8 +38,6 @@ Using Heroku (Host, Domain), MongoDB (Database), Mlab (Cloud)
 ##### Start Server NodeJS
 At root of project
 ```bash
-cd server
-
 npm start
 # or
 yarn start
@@ -49,6 +47,8 @@ That will run on localhost:4200
 ##### Start Client ReactJS
 At root of project
 ```bash
+cd client/
+
 npm start
 # or
 yarn start
@@ -59,8 +59,6 @@ That will run on localhost:3000. On your browser, should run on port 4200
 ##### Database MongoDB
 At root of project
 ```bash
-cd server
-
 touch .env
 ```
 Create file `.env` with the following line:
@@ -73,16 +71,17 @@ Change the URI Mongo for your production
 #### Testing
 At root of project, run server nodeJS at port 4200 by
 ```bash
+cd client/
+
 ### build frontend reactjs
 npm run build
 # or
 yarn build
 
-### add directory build to server
-cp build/ ./server/ -r
-
 ### start server nodejs
-cd server
+# return to root of project
+cd ..
+
 npm start
 # or 
 yarn start
