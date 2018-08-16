@@ -39,12 +39,12 @@ app.use(compression());
  * Render build production
  */
 app.use(express.static(path.join(__dirname, '../client/build'), {
-  setHeaders(res, path) {
-    if (path.includes('lib') || path.includes('static')) {
-      const ONE_WEEK = 7 * 24 * 60 * 60;
-      res.setHeader('Cache-Control', `public, max-age=${ONE_WEEK}`);
-    }
-  }
+  // setHeaders(res, path) {
+  //   if (path.includes('lib') || path.includes('static')) {
+  //     const ONE_WEEK = 7 * 24 * 60 * 60;
+  //     res.setHeader('Cache-Control', `public, max-age=${ONE_WEEK}`);
+  //   }
+  // }
 }));
 
 /**
@@ -53,6 +53,10 @@ app.use(express.static(path.join(__dirname, '../client/build'), {
 import socketDontpad from './socket-io/dontpad';
 
 socketDontpad(server);
+
+app.get('/*/view', (req, res, next) => res.redirect(`/${req.params[0]}`));
+
+// app.get('/*', (req, res, next) => res.send(req.path));
 
 // handle all requests to the build folder
 app.get('*', (req, res, next) => {

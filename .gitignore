@@ -74,3 +74,6 @@ yarn-error.log*
 
 # auto generated files (sass, less, ...)
 client/src/**/*.css
+
+# Build client
+client/build

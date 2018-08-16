@@ -1,0 +1,25 @@
+.Alert {
+	position: fixed;
+	bottom: 30px;
+	left: 50%;
+	transform: translateX(-50%);
+	background-color:  #202020d8;
+	color: white;
+	font-size: 0.7em;
+	max-width: 250px;
+	max-height: 50px;
+	padding: 10px 22px 10px 10px;
+	border-radius: 4px;
+	transition-duration: 0.3s;
+	margin-bottom: 0px;
+	&.hide {
+		margin-bottom: -80px;
+	}
+	i {
+		position: absolute;
+		right: 7px;
+		top: 7px;
+		font-size: 0.75em;
+		cursor: pointer;
+	}
+}

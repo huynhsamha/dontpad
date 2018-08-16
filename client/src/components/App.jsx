@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import io from 'socket.io-client';
 
 import './App.css';
@@ -7,17 +8,13 @@ import Editor from './editor/Editor';
 import Viewer from './viewer/Viewer';
 import Navigator from './navigator/Navigator';
 
-import UtilityDateTime from '../services/UtilityDateTime';
+import { getLastTimeString } from '../utils/DateTime';
+import * as msg from '../utils/Messages';
 
 class App extends Component {
 
   constructor(props) {
     super(props);
-
-    // constants
-    this.UNTITLED_DOCUMENT = 'Untitled document';
-    this.ALL_CHAGNES_SAVED = 'All changes saved';
-    this.ERROR = 'Error, please reconnect to try again';
 
     this.state = {
       model: '',
@@ -40,7 +37,7 @@ class App extends Component {
     if (window.location.pathname === '/') {
       this.state.navigator = true;
     } else {
-      document.title = this.UNTITLED_DOCUMENT;
+      document.title = msg.EMPTY_DOC;
     }
   }
 
@@ -75,10 +72,10 @@ class App extends Component {
         // this is reality that file changed by user
         // not take flash show saving...
         if (Date.now() - this.timeShowTextSaving > 500) {
-          this.setState({ stateModel: this.ALL_CHAGNES_SAVED });
+          this.setState({ stateModel: msg.SAVE_ALL });
         } else {
           setTimeout(() => {
-            this.setState({ stateModel: this.ALL_CHAGNES_SAVED });
+            this.setState({ stateModel: msg.SAVE_ALL });
           }, 500);
         }
       } else {
@@ -88,7 +85,7 @@ class App extends Component {
     });
 
     this.socket.on('SERVER_ERROR', () => {
-      this.setState({ stateModel: this.ERROR });
+      this.setState({ stateModel: msg.ERROR_CONNECT });
     });
   }
 
@@ -120,13 +117,13 @@ class App extends Component {
       document.title = 'Advanced Dontpad';
       return;
     }
-    document.title = title || this.UNTITLED_DOCUMENT;
+    document.title = title || msg.EMPTY_DOC;
     if (this.state.title !== document.title) this.setState({ title });
   }
 
   updateState = (createdAt, updatedAt) => {
     const time = updatedAt || createdAt;
-    const convertTime = new UtilityDateTime().getLastTimeString(time);
+    const convertTime = getLastTimeString(time);
     return this.setState({ stateModel: convertTime });
   }
 
@@ -137,8 +134,28 @@ class App extends Component {
 
     return (
       <div className="App">
+        <Router>
+          <div>
+            <Switch>
+              <Route exact path="/" component={Navigator} />
+              <Route exact path="/*/view" component={() => <Viewer toggleView={this.toggleView} />} />
+              <Route component={() => (
+                <Editor
+                  show={!navigator && !viewPage} model={model}
+                  onChangeModel={this.onChangeModel}
+                  onChangeTitle={this.onChangeTitle}
+                  toggleView={this.toggleView}
+                  stateModel={stateModel}
+                  title={title}
+                  usersInRoom={usersInRoom}
+                />
+              )}
+              />
+            </Switch>
+          </div>
+        </Router>
         {/* only 1 in 3 following components shows in one time */}
-        <Navigator show={navigator} />
+        {/* <Navigator show={navigator} />
         <Viewer show={!navigator && viewPage} model={model} toggleView={this.toggleView} />
         <Editor
           show={!navigator && !viewPage} model={model}
@@ -148,7 +165,7 @@ class App extends Component {
           stateModel={stateModel}
           title={title}
           usersInRoom={usersInRoom}
-        />
+        /> */}
       </div>
     );
   }

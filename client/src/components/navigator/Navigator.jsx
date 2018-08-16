@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link, withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import Fade from 'react-reveal/Fade';
 import Zoom from 'react-reveal/Zoom';
@@ -15,62 +16,40 @@ class Navigator extends Component {
     this.state = {
       path: ''
     };
-
   }
 
-  onChangePath = (event) => {
-    const path = event.target.value;
-    this.setState({ path });
-  }
-
-  onClickNavigator = () => {
-    window.location.href = this.state.path;
-  }
-
-  onKeyPress = (event) => {
-    if (event.key === 'Enter') {
-      window.location.href = this.state.path;
-    }
+  _onNavigate = () => {
+    this.props.history.push(this.state.path);
   }
 
   render() {
-    const { show } = this.props;
-
     return (
-      <div className="Navigator" style={{ display: show ? 'block' : 'none' }}>
+      <div className="Navigator">
         <div className="container">
           <div className="row">
             <div className="col-lg-12">
               <div className="wrapper">
 
                 <h1 className="title d-inline-flex">
-                  <div>
-                    <Zoom bottom cascade>
-                      Advanced
-                    </Zoom>
-                  </div>
+                  <div><Zoom bottom cascade>Advanced</Zoom></div>
                   <div style={{ marginLeft: 15, marginRight: 15 }}>
-                    <Zoom>
-                      <img src="/favicon.ico" alt="favicon" width="48" height="48" />
-                    </Zoom>
+                    <Zoom><img src="/favicon.ico" alt="favicon" width="48" height="48" /></Zoom>
                   </div>
-                  <div>
-                    <Zoom bottom cascade>
-                      Dontpad
-                    </Zoom>
-                  </div>
+                  <div><Zoom bottom cascade>Dontpad</Zoom></div>
                 </h1>
 
                 <Fade bottom>
                   <div className="input-group">
-                    <span className="text-fixed">
-                    https://dontpad.herokuapp.com/
-                    </span>
+                    <span className="text-fixed">https://dontpad.herokuapp.com/</span>
                     <input
                       className="inp" autoFocus
-                      type="text" onChange={this.onChangePath} onKeyPress={this.onKeyPress}
+                      type="text"
+                      onChange={ev => this.setState({ path: ev.target.value })}
+                      onKeyPress={(ev) => {
+                        if (ev.key == 'Enter') this._onNavigate();
+                      }}
                     />
-                    <button className="btn" type="button" onClick={this.onClickNavigator}>
+                    <button className="btn" type="button" onClick={this._onNavigate}>
                       <span><i className="fa fa-paper-plane" /></span>
                     </button>
                   </div>
@@ -124,11 +103,12 @@ class Navigator extends Component {
 }
 
 Navigator.propTypes = {
-  show: PropTypes.bool
+  history: PropTypes.shape({
+    push: PropTypes.func.isRequired
+  }).isRequired
 };
 
 Navigator.defaultProps = {
-  show: window.location.path === '/'
 };
 
-export default Navigator;
+export default withRouter(Navigator);
