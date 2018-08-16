@@ -6,3 +6,8 @@ build/*
 public/lib/*
 vendors/*
 lib/*
+
+client/node_modules/*
+client/src/lib/*
+client/src/vendors/*
+client/public/*

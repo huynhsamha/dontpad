@@ -1,69 +1,126 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { withRouter } from 'react-router-dom';
+import { connect } from 'react-redux';
 import FroalaEditor from 'react-froala-wysiwyg';
+import io from 'socket.io-client';
+import conf from '../../config';
 
 import './Editor.css';
+
+import { getLastTimeString } from '../../utils/DateTime';
+import { config as configFrolaEditor } from '../../utils/FroalaWysiwyg';
+import * as msg from '../../utils/Messages';
+
+import * as actions from '../../redux/actions';
+
+const socket = io();
+
 
 class Editor extends Component {
 
   constructor(props) {
     super(props);
 
-    this.state = {};
+    document.title = msg.EMPTY_DOC;
+
+    this.state = {
+      title: '',
+      usersInRoom: 0,
+      stateModel: ''
+    };
+
+    /** Flag checking if user changed file first */
+    this.fileUsedToBeChanged = false;
+
+    /**
+     * Timestamp on emitting model changed to save
+     * use for not take flash show saving... for user
+     */
+    this.timeShowTextSaving = 0;
   }
 
-  onClickView = () => {
-    this.props.toggleView(true);
+  componentWillMount() {
+    this.room = window.location.pathname;
+    socket.emit(conf.socket.client.joinRoom, this.room);
+    this._configSocket();
   }
 
-  onChangeTitle = (event) => {
-    this.props.onChangeTitle(event.target.value);
+  _configSocket = () => {
+    socket.on(conf.socket.server.userInRoomChanged, (usersInRoom) => {
+      this.setState({ usersInRoom });
+    });
+
+    socket.on(conf.socket.server.sendDataInRoom, (data) => {
+      const { title, model, createdAt, updatedAt } = data;
+      this.props.editModel(model);
+      this._updateTitle(title);
+      this._updateState(createdAt, updatedAt);
+    });
+
+    socket.on(conf.socket.server.modelChanged, (model) => {
+      this.props.editModel(model);
+    });
+
+    socket.on(conf.socket.server.titleChanged, (title) => {
+      this._updateTitle(title);
+    });
+
+    socket.on(conf.socket.server.dataSaved, () => {
+      if (this.fileUsedToBeChanged) {
+        // this is reality that file changed by user
+        // not take flash show saving...
+        if (Date.now() - this.timeShowTextSaving > 500) {
+          this.setState({ stateModel: msg.SAVE_ALL });
+        } else {
+          setTimeout(() => {
+            this.setState({ stateModel: msg.SAVE_ALL });
+          }, 500);
+        }
+      } else {
+        // toggle flag for changes
+        this.fileUsedToBeChanged = true;
+      }
+    });
+
+    socket.on(conf.socket.server.error, () => {
+      this.setState({ stateModel: msg.ERROR_CONNECT });
+    });
   }
 
-  onChangeModel = (model) => {
-    this.props.onChangeModel(model);
+  _onChangeModel = (model) => {
+    this.timeShowTextSaving = Date.now();
+    this.setState({ stateModel: msg.SAVING });
+    this.props.editModel(model);
+    socket.emit(conf.socket.client.modelChanged, {
+      model, room: this.room
+    });
   }
 
-  configFrolaEditor = {
-    placeholderText: 'Edit Your Content Here!',
-    charCounterCount: false,
-    theme: 'custom',
-    indentMargin: 10,
-    heightMin: window.screen.availHeight,
-    fontFamily: {
-      'Roboto, sans-serif': 'Roboto',
-      'Quicksand, sans-serif': 'Quicksand',
-      'Nunito, sans-serif': 'Nunito',
-      'Open Sans, sans-serif': 'Open Sans',
-      'Open Sans Condensed, sans-serif': 'Open Sans Condensed',
-      'Arial,Helvetica,sans-serif': 'Arial',
-      'Georgia,serif': 'Georgia',
-      'Impact,Charcoal,sans-serif': 'Impact',
-      'Tahoma,Geneva,sans-serif': 'Tahoma',
-      '\'Times New Roman\',Times,serif': 'Times New Roman',
-      'Verdana,Geneva,sans-serif': 'Verdana'
-    },
-    toolbarButtons: [
-      'bold', 'italic', 'underline', 'strikeThrough', 'subscript', 'superscript', '|',
-      'fontFamily', 'fontSize', 'color', 'paragraphStyle', '|',
-      'paragraphFormat', 'align', 'formatOL', 'formatUL', 'outdent', 'indent', 'quote',
-      'insertLink', 'insertImage', 'insertVideo', 'embedly', 'insertFile', 'insertTable', '|',
-      'emoticons', 'specialCharacters', 'insertHR', 'selectAll', 'clearFormatting', '|',
-      'print', 'spellChecker', 'help', 'html', '|', 'undo', 'redo', '|', 'fullscreen'
-    ]
-  };
+  _onChangeTitle = (_title) => {
+    const title = String(_title).trim();
+    if (title.length > 40) return;
+    this.timeShowTextSaving = Date.now();
+    this.setState({ stateModel: msg.SAVING });
+    this._updateTitle(title);
+    socket.emit(conf.socket.client.titleChanged, {
+      title, room: this.room
+    });
+  }
+
+  _updateTitle(title) {
+    document.title = title || msg.EMPTY_DOC;
+    if (this.state.title !== document.title) this.setState({ title });
+  }
+
+  _updateState = (createdAt, updatedAt) => {
+    const time = updatedAt || createdAt;
+    return this.setState({ stateModel: getLastTimeString(time) });
+  }
 
   render() {
-    /**
-     * Configure for Frola Editor
-     * https://www.froala.com/wysiwyg-editor/docs/options#fontFamily
-     */
-    const {
-      usersInRoom, stateModel, show, model, title
-    } = this.props;
-
     return (
-      <div className="Editor" style={{ display: show ? 'block' : 'none' }}>
+      <div className="Editor">
 
         <div className="header">
           <div className="container-fluid">
@@ -78,8 +135,10 @@ class Editor extends Component {
                   </div>
                   <div className="wrapper-input">
                     <input
-                      type="text" placeholder="Untitled document" onChange={this.onChangeTitle}
-                      defaultValue={title} maxLength="40"
+                      type="text" maxLength="40"
+                      placeholder={msg.EMPTY_DOC}
+                      defaultValue={this.state.title}
+                      onChange={ev => this._onChangeTitle(ev.target.value)}
                     />
                   </div>
                 </div>
@@ -87,22 +146,29 @@ class Editor extends Component {
 
               <div className="col-12 col-lg-4 col-md-4">
                 <div className="state">
-                  {stateModel}
+                  {this.state.stateModel}
                 </div>
               </div>
 
               <div className="col-12 col-lg-4 col-md-4">
                 <div className="options">
                   {
-                    usersInRoom > 0 ?
+                    this.state.usersInRoom > 0 ?
                       <span className="badge">
-                        <span className="number">{usersInRoom}</span>
-                        <span className="text">other{usersInRoom > 1 ? 's' : ''} online</span>
+                        <span className="number">{this.state.usersInRoom}</span>
+                        <span className="text">other{this.state.usersInRoom > 1 ? 's' : ''} online</span>
                       </span>
                       :
                       ''
                   }
-                  <button className="btn" onClick={this.onClickView}>
+                  <button
+                    className="btn"
+                    onClick={() => {
+                      window.previousPath = window.location.pathname;
+                      this.props.history.push(`${window.location.pathname}/view`);
+                    }
+                    }
+                  >
                     <span><i className="fa fa-html5" />View Page</span>
                   </button>
                 </div>
@@ -114,9 +180,9 @@ class Editor extends Component {
         <div className="editor">
           <FroalaEditor
             tag="textarea"
-            model={model}
-            config={this.configFrolaEditor}
-            onModelChange={this.onChangeModel}
+            model={this.props.model}
+            config={configFrolaEditor}
+            onModelChange={this._onChangeModel}
           />
         </div>
       </div>
@@ -126,23 +192,24 @@ class Editor extends Component {
 
 Editor.propTypes = {
   model: PropTypes.string,
-  show: PropTypes.bool,
-  onChangeModel: PropTypes.func,
-  toggleView: PropTypes.func,
-  onChangeTitle: PropTypes.func,
-  stateModel: PropTypes.string.isRequired,
-  title: PropTypes.string,
-  usersInRoom: PropTypes.number
+  editModel: PropTypes.func,
+  history: PropTypes.object.isRequired
 };
 
 Editor.defaultProps = {
   model: '',
-  show: false,
-  title: '',
-  usersInRoom: 0,
-  onChangeModel: () => { },
-  toggleView: () => { },
-  onChangeTitle: () => { }
+  editModel: () => {}
 };
 
-export default Editor;
+const mapStateToProps = state => ({
+  model: state.Model
+});
+
+const mapDispatchToProps = dispatch => ({
+  editModel: (model) => {
+    dispatch(actions.editModel(model));
+  }
+});
+
+
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Editor));

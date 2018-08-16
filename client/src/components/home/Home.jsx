@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
-import { Link, withRouter } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import Fade from 'react-reveal/Fade';
 import Zoom from 'react-reveal/Zoom';
 
 import ShareButtons from '../share-buttons/ShareButtons';
 
-import './Navigator.css';
+import './Home.css';
 
-class Navigator extends Component {
+class Home extends Component {
 
   constructor(props) {
     super(props);
@@ -24,7 +24,7 @@ class Navigator extends Component {
 
   render() {
     return (
-      <div className="Navigator">
+      <div className="Home">
         <div className="container">
           <div className="row">
             <div className="col-lg-12">
@@ -46,7 +46,7 @@ class Navigator extends Component {
                       type="text"
                       onChange={ev => this.setState({ path: ev.target.value })}
                       onKeyPress={(ev) => {
-                        if (ev.key == 'Enter') this._onNavigate();
+                        if (ev.key === 'Enter') this._onNavigate();
                       }}
                     />
                     <button className="btn" type="button" onClick={this._onNavigate}>
@@ -102,13 +102,11 @@ class Navigator extends Component {
   }
 }
 
-Navigator.propTypes = {
-  history: PropTypes.shape({
-    push: PropTypes.func.isRequired
-  }).isRequired
+Home.propTypes = {
+  history: PropTypes.object.isRequired
 };
 
-Navigator.defaultProps = {
+Home.defaultProps = {
 };
 
-export default withRouter(Navigator);
+export default withRouter(Home);

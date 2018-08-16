@@ -1,24 +1,28 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { withRouter } from 'react-router-dom';
+import { connect } from 'react-redux';
 import FroalaEditorView from 'react-froala-wysiwyg/FroalaEditorView';
 
 import './Viewer.css';
 
 class Viewer extends Component {
+  constructor(props) {
+    super(props);
 
-  onClickEdit = () => {
-    this.props.toggleView(false);
+    const path = `/${this.props.match.params[0]}`;
+    if (window.previousPath !== path) {
+      this.props.history.push(path);
+    }
   }
 
   render() {
     return (
-      <div className="Viewer" style={{ display: this.props.show ? 'block' : 'none' }}>
+      <div className="Viewer">
         <div className="wrapper-view">
-          <FroalaEditorView
-            model={this.props.model}
-          />
+          <FroalaEditorView model={this.props.model} />
         </div>
-        <button className="btn btn-fixed" onClick={this.onClickEdit}>
+        <button className="btn btn-fixed" onClick={() => this.props.history.goBack()}>
           <span><i className="fa fa-pencil" /></span>
         </button>
       </div>
@@ -28,14 +32,19 @@ class Viewer extends Component {
 
 Viewer.propTypes = {
   model: PropTypes.string,
-  show: PropTypes.bool,
-  toggleView: PropTypes.func
+  history: PropTypes.object.isRequired,
+  match: PropTypes.object.isRequired
 };
 
 Viewer.defaultProps = {
-  model: '',
-  show: true,
-  toggleView: () => {}
+  model: ''
 };
 
-export default Viewer;
+const mapStateToProps = state => ({
+  model: state.Model
+});
+
+const mapDispatchToProps = dispatch => ({});
+
+
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Viewer));

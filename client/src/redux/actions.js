@@ -8,3 +8,8 @@ export const showAlert = message => ({
 export const hideAlert = () => ({
   type: actionTypes.HIDE_ALERT
 });
+
+export const editModel = model => ({
+  type: actionTypes.EDIT_MODEL,
+  model
+});

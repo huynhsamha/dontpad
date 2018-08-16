@@ -1,16 +1,18 @@
 import socketIO from 'socket.io';
 import DontpadCtrl from '../controllers/dontpad';
+import conf from '../../client/src/config';
 
 export default (server) => {
   const io = socketIO(server);
 
   io.on('connection', (socket) => {
-    // console.log('Connected:', socket.id);
+    console.log('Connected:', socket.id);
+    console.log(socket.handshake);
 
     const emitUserInRoom = (room) => {
       const usersInRoom = io.sockets.adapter.rooms[room];
       if (usersInRoom) {
-        io.to(room).emit('SERVER_USER_IN_ROOM_CHANGED', usersInRoom.length - 1);
+        io.to(room).emit(conf.socket.server.userInRoomChanged, usersInRoom.length - 1);
       }
     };
 
@@ -21,7 +23,7 @@ export default (server) => {
       }
     });
 
-    socket.on('CLIENT_JOIN_ROOM', (room) => {
+    socket.on(conf.socket.client.joinRoom, (room) => {
       // console.log('Join room:', socket.id, room);
       socket.join(room);
       socket.roomID = room;
@@ -32,44 +34,44 @@ export default (server) => {
         .then((dontpad) => {
           // console.log(dontpad);
           const { title, model, createdAt, updatedAt } = dontpad;
-          socket.emit('SERVER_SEND_DATA_IN_ROOM', { title, model, createdAt, updatedAt });
+          socket.emit(conf.socket.server.sendDataInRoom, { title, model, createdAt, updatedAt });
         })
         .catch((err) => {
           console.log(err);
-          socket.emit('SERVER_ERROR');
+          socket.emit(conf.socket.server.error);
         });
     });
 
-    socket.on('CLIENT_MODEL_CHANGED', (data) => {
+    socket.on(conf.socket.client.modelChanged, (data) => {
       const { model, room } = data;
       // console.log('Model Changed:');
       // console.log('Room:', room);
-      socket.broadcast.to(room).emit('SERVER_MODEL_CHANGED', model);
+      socket.broadcast.to(room).emit(conf.socket.server.modelChanged, model);
 
       DontpadCtrl.updateOne(room, { model })
         .then((res) => {
           // console.log(res);
-          socket.emit('SERVER_DATA_SAVED');
+          socket.emit(conf.socket.server.dataSaved);
         })
         .catch((err) => {
           console.log(err);
-          socket.emit('SERVER_ERROR');
+          socket.emit(conf.socket.server.error);
         });
     });
 
-    socket.on('CLIENT_TITLE_CHANGED', (data) => {
+    socket.on(conf.socket.client.titleChanged, (data) => {
       const { title, room } = data;
       // console.log('Title Changed:');
-      socket.broadcast.to(room).emit('SERVER_TITLE_CHANGED', title);
+      socket.broadcast.to(room).emit(conf.socket.server.titleChanged, title);
 
       DontpadCtrl.updateOne(room, { title })
         .then((res) => {
           // console.log(res);
-          socket.emit('SERVER_DATA_SAVED');
+          socket.emit(conf.socket.server.dataSaved);
         })
         .catch((err) => {
           console.log(err);
-          socket.emit('SERVER_ERROR');
+          socket.emit(conf.socket.server.error);
         });
     });
 
