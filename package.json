@@ -1,6 +1,6 @@
 {
   "name": "dontpad",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "homepage": "https://dontpad.herokuapp.com/",
   "private": true,
   "description": "Advanced Dontpad with format, font, image, video, url",
