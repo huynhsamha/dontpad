@@ -20,5 +20,5 @@ body {
 		padding: 0px;
 		font-family: $font-family-Nunito;
 		color: white;
-		background-image: url('../assets//img//bg.jpg');
+		background-color: darken($color: $color-primary, $amount: 30%);
 }

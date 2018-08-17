@@ -6,8 +6,7 @@ export default (server) => {
   const io = socketIO(server);
 
   io.on('connection', (socket) => {
-    console.log('Connected:', socket.id);
-    console.log(socket.handshake);
+    // console.log('Connected:', socket.id);
 
     const emitUserInRoom = (room) => {
       const usersInRoom = io.sockets.adapter.rooms[room];

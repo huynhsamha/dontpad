@@ -16,7 +16,6 @@ import * as actions from '../../redux/actions';
 
 const socket = io();
 
-
 class Editor extends Component {
 
   constructor(props) {
@@ -118,6 +117,11 @@ class Editor extends Component {
     return this.setState({ stateModel: getLastTimeString(time) });
   }
 
+  _navigateToViewer = () => {
+    window.previousPath = window.location.pathname;
+    this.props.history.push(`${window.location.pathname}/view`);
+  }
+
   render() {
     return (
       <div className="Editor">
@@ -161,14 +165,7 @@ class Editor extends Component {
                       :
                       ''
                   }
-                  <button
-                    className="btn"
-                    onClick={() => {
-                      window.previousPath = window.location.pathname;
-                      this.props.history.push(`${window.location.pathname}/view`);
-                    }
-                    }
-                  >
+                  <button className="btn" onClick={this._navigateToViewer}>
                     <span><i className="fa fa-html5" />View Page</span>
                   </button>
                 </div>

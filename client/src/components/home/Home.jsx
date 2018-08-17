@@ -7,6 +7,7 @@ import Zoom from 'react-reveal/Zoom';
 import ShareButtons from '../share-buttons/ShareButtons';
 
 import './Home.css';
+import { getRandomInt } from '../../utils/Math';
 
 class Home extends Component {
 
@@ -14,7 +15,8 @@ class Home extends Component {
     super(props);
 
     this.state = {
-      path: ''
+      path: '',
+      bgUrlID: 15
     };
   }
 
@@ -22,9 +24,13 @@ class Home extends Component {
     this.props.history.push(this.state.path);
   }
 
+  _onChangeBackground = () => {
+    this.setState({ bgUrlID: getRandomInt(1, 16) });
+  }
+
   render() {
     return (
-      <div className="Home">
+      <div className="Home" style={{ backgroundImage: `url('/img/bg${this.state.bgUrlID}.jpg')` }}>
         <div className="container">
           <div className="row">
             <div className="col-lg-12">
@@ -93,9 +99,18 @@ class Home extends Component {
         <div className="col-12 copyright">
           <Zoom>
             <div>
-              Copyright <i className="fa fa-copyright" /> 2018. Created by <a href="//github.com/huynhsamha">huynhsamha</a>
+              Made with <i className="fa fa-heart" /> by <a href="//github.com/huynhsamha">huynhsamha</a>
             </div>
           </Zoom>
+        </div>
+
+        <div className="Home__change-bg">
+          <button
+            className="Home__change-bg__btn" type="button" onClick={this._onChangeBackground}
+            title="Change background randomly"
+          >
+            <i className="fa fa-random" aria-hidden="true" />
+          </button>
         </div>
       </div>
     );

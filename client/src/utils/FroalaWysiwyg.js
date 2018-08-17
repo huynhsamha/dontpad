@@ -28,5 +28,20 @@ export const config = {
     'insertLink', 'insertImage', 'insertVideo', 'embedly', 'insertFile', 'insertTable', '|',
     'emoticons', 'specialCharacters', 'insertHR', 'selectAll', 'clearFormatting', '|',
     'print', 'spellChecker', 'help', 'html', '|', 'undo', 'redo', '|', 'fullscreen'
-  ]
+  ],
+  events: {
+    'froalaEditor.html.set': function (e, editor) {
+      // console.log('Set');
+      // editor.selection.save();
+      // editor.selection.restore();
+    },
+    'froalaEditor.html.beforeGet': function (e, editor) {
+      // console.log('beforeGet');
+      // editor.selection.save();
+    },
+    'froalaEditor.html.afterGet': function (e, editor) {
+      // console.log('afterGet');
+      // editor.selection.restore();
+    }
+  }
 };
