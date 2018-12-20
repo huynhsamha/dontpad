@@ -77,3 +77,6 @@ client/src/**/*.css
 
 # Build client
 client/build
+
+
+database
