@@ -7,7 +7,7 @@ export default (state = initialState, action) => {
   switch (action.type) {
 
     case actionTypes.EDIT_MODEL:
-      return action.model || state;
+      return action.model || initialState;
 
     default:
       return state;

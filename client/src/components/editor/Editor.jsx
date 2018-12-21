@@ -30,7 +30,7 @@ class Editor extends Component {
     };
 
     /** Flag checking if user changed file first */
-    this.fileUsedToBeChanged = false;
+    // this.fileUsedToBeChanged = false;
 
     /**
      * Timestamp on emitting model changed to save
@@ -66,20 +66,27 @@ class Editor extends Component {
     });
 
     socket.on(conf.socket.server.dataSaved, () => {
-      if (this.fileUsedToBeChanged) {
-        // this is reality that file changed by user
-        // not take flash show saving...
-        if (Date.now() - this.timeShowTextSaving > 500) {
-          this.setState({ stateModel: msg.SAVE_ALL });
-        } else {
-          setTimeout(() => {
-            this.setState({ stateModel: msg.SAVE_ALL });
-          }, 500);
-        }
+      if (Date.now() - this.timeShowTextSaving > 500) {
+        this.setState({ stateModel: msg.SAVE_ALL });
       } else {
-        // toggle flag for changes
-        this.fileUsedToBeChanged = true;
+        setTimeout(() => {
+          this.setState({ stateModel: msg.SAVE_ALL });
+        }, 500);
       }
+      // if (this.fileUsedToBeChanged) {
+      //   // this is reality that file changed by user
+      //   // not take flash show saving...
+      //   if (Date.now() - this.timeShowTextSaving > 500) {
+      //     this.setState({ stateModel: msg.SAVE_ALL });
+      //   } else {
+      //     setTimeout(() => {
+      //       this.setState({ stateModel: msg.SAVE_ALL });
+      //     }, 500);
+      //   }
+      // } else {
+      //   // toggle flag for changes
+      //   this.fileUsedToBeChanged = true;
+      // }
     });
 
     socket.on(conf.socket.server.error, () => {

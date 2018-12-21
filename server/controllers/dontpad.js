@@ -2,48 +2,36 @@ import mongoose from 'mongoose';
 
 const Dontpad = mongoose.model('Dontpad');
 
-function findOneByUrl(url) {
-  return new Promise((resolve, reject) => {
-    Dontpad.findOne({ url })
-      .select('title model createdAt updatedAt')
-      .exec((err, dontpad) => {
-        if (err) return reject(err);
-        return resolve(dontpad || { createdAt: new Date() });
-      });
-  });
-}
+const findOneByUrl = url => new Promise((resolve, reject) => {
+  Dontpad.findOne({ url }).then((dontpad) => {
+    resolve(dontpad || { createdAt: new Date() });
+  }).catch(err => reject(err));
+});
 
-function removeOne(url) {
-  return new Promise((resolve, reject) => {
-    Dontpad.remove({ url }, (err) => {
-      if (err) return reject(err);
-      return resolve({ message: 'Cleared page' });
-    });
+const removeOne = url => new Promise((resolve, reject) => {
+  Dontpad.deleteOne({ url }, (err) => {
+    if (err) return reject(err);
+    return resolve({ message: 'Cleared page' });
   });
-}
+});
 
-function updateOne(url, { title, model }) {
+const updateOne = (url, { title, model }) => {
   if (!model && !title) {
     return removeOne(url);
   }
   return new Promise((resolve, reject) => {
-    Dontpad.findOne({ url })
-      .select('title model createdAt updatedAt')
-      .exec((err, dontpad) => {
-        if (err) return reject(err);
-        if (!dontpad) {
-          dontpad = new Dontpad({ url, title, model });
-        } else {
-          if (title) dontpad.title = title;
-          if (model) dontpad.model = model;
-        }
-        dontpad.save((err, dontpad) => {
-          if (err) return reject(err);
-          return resolve({ message: 'Saved' });
-        });
-      });
+    Dontpad.findOne({ url }).then((dontpad) => {
+      if (!dontpad) {
+        dontpad = new Dontpad({ url, title, model });
+      } else {
+        if (title) dontpad.title = title;
+        if (model) dontpad.model = model;
+      }
+      return dontpad.save();
+    }).then(() => resolve({ message: 'Saved' }))
+      .catch(err => reject(err));
   });
-}
+};
 
 export default {
   findOneByUrl,
