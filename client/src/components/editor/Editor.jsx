@@ -89,8 +89,8 @@ class Editor extends Component {
 
   _onChangeModel = (model) => {
     this.timeShowTextSaving = Date.now();
-    this.setState({ stateModel: msg.SAVING });
     this.props.editModel(model);
+    this.setState({ stateModel: msg.SAVING });
     socket.emit(conf.socket.client.modelChanged, {
       model, room: this.room
     });

@@ -1,6 +1,9 @@
 @import '../../styles/_variables.scss';
 $padtop: 6px;
 .Editor {
+	.editor {
+		line-height: 0.6em;
+	}
     .header {
         background-color: white;
         width: 96%;
