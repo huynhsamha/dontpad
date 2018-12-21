@@ -4,6 +4,8 @@
  */
 export const config = {
   placeholderText: 'Edit Your Content Here!',
+  spellcheck: false,
+  scaytAutoload: false,
   charCounterCount: false,
   theme: 'custom',
   indentMargin: 10,
