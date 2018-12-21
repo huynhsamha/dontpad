@@ -9,7 +9,7 @@ Some pages demo:
 + [https://dontpad.herokuapp.com/python](https://dontpad.herokuapp.com/python)
 
 
-### Features
+## Features
 + Don't login, just use a URL
 + Don't save, any changes is auto-saved
 + Format font-style, font-family, font-size, color
@@ -21,21 +21,21 @@ Some pages demo:
 + Private, Security and No Advertising
 
 
-### Front-End Platforms
-Using ReactJS, Socket.IO (realtime)
+## Front-End Platforms
+Using ReactJS, Socket.IO (realtime), Froala Editor
 
-### Back-end Platforms
+## Back-end Platforms
 Using NodeJS, Socket.IO (realtime)
 
-### Database and Deployment
-Using Heroku (Host, Domain), MongoDB (Database), Mlab (Cloud)
+## Database and Deployment
+Using Heroku (Host, Domain), MongoDB (mongoose), Mlab (Cloud)
 
-### Quickstart
+## Quickstart
 + Clone source code to your local
 
-#### Development
+### Development
 
-##### Start Server NodeJS
+#### Start Server NodeJS
 At root of project
 ```bash
 npm start
@@ -44,7 +44,7 @@ yarn start
 ```
 That will run on localhost:4200
 
-##### Start Client ReactJS
+#### Start Client ReactJS
 At root of project
 ```bash
 cd client/
@@ -56,7 +56,7 @@ yarn start
 That will run on localhost:3000. On your browser, should run on port 4200
 
 
-##### Database MongoDB
+#### Database MongoDB
 At root of project
 ```bash
 touch .env
@@ -68,7 +68,7 @@ URI_MONGO=mongodb://localhost/dontpad
 Change the URI Mongo for your production
 
 
-#### Testing
+### Testing and Deployment
 At root of project, run server nodeJS at port 4200 by
 ```bash
 cd client/
@@ -89,8 +89,8 @@ yarn start
 On your browser, open localhost:4200 to view the dotnpad
 
 
-### Deploy Heroku
-#### Configure on Heroku
+## Deploy on Heroku
+### Configure on Heroku
 + Login or sign up new account on heroku
 + Add new application
 + At local, create new directory for heroku
@@ -102,7 +102,7 @@ On your browser, open localhost:4200 to view the dotnpad
 + Login heroku account at local machine: `heroku login` (if you haven't done yet)
 + Remote local to heroku by `git remote add heroku [your git url]`
 
-#### Configure database MongoDB on Mlab
+### Configure database MongoDB on Mlab
 + Login or sign up new account on Mlab
 + Create new database
 + In the options (collections, users, ...) in tabs at new database, choose option users 
@@ -111,7 +111,7 @@ On your browser, open localhost:4200 to view the dotnpad
 + Copy the uri to file `.env` at local directory
 + Now you can commit and deploy to heroku
 
-#### Commit and Deploy
+### Commit and Deploy
 + Commit all changes and deploy to heroku:
 ```bash
 git status
