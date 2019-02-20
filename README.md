@@ -120,3 +120,7 @@ git commit -m "first deploy"
 git push heroku master
 ```
 + Now, you can open the herokuapp to view your achievement.
+
+## Donate
+
+<a href="https://www.buymeacoffee.com/harisk" target="_blank"><img src="https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png" alt="Buy Me A Coffee" style="height: auto !important;width: auto !important;" ></a>
