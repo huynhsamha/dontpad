@@ -4,6 +4,8 @@ Advanced Dontpad - Editor online without identity
 
 Deploy on Heroku App: [https://dontpad.herokuapp.com/](https://dontpad.herokuapp.com/)
 
+Available on http://dontpad.tk with same database uri.
+
 Some pages demo:
 + [https://dontpad.herokuapp.com/github.com](https://dontpad.herokuapp.com/github.com)
 + [https://dontpad.herokuapp.com/python](https://dontpad.herokuapp.com/python)
