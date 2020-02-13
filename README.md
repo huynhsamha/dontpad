@@ -1,15 +1,12 @@
 # dontpad
-Advanced Dontpad - Editor online without identity
 
+Advanced Dontpad - Editor online without identity
 
 Deploy on Heroku App: [https://dontpad.herokuapp.com/](https://dontpad.herokuapp.com/)
 
-Available on http://dontpad.tk with same database uri.
-
-Some pages demo:
+Examples:
 + [https://dontpad.herokuapp.com/github.com](https://dontpad.herokuapp.com/github.com)
 + [https://dontpad.herokuapp.com/python](https://dontpad.herokuapp.com/python)
-
 
 ## Features
 + Don't login, just use a URL
@@ -22,32 +19,55 @@ Some pages demo:
 + Realtime, don't refresh page when your friends change
 + Private, Security and No Advertising
 
+## Introduciton
 
-## Front-End Platforms
+### Frontend Platforms
+
 Using ReactJS, Socket.IO (realtime), Froala Editor
 
-## Back-end Platforms
+### Backend Platforms
+
 Using NodeJS, Socket.IO (realtime)
 
-## Database and Deployment
+### Database and Deployment
+
 Using Heroku (Host, Domain), MongoDB (mongoose), Mlab (Cloud)
 
+
 ## Quickstart
+
 + Clone source code to your local
+
+```bash
+git clone https://github.com/huynhsamha/dontpad.git
+```
+
++ Install npm packages
+
+```bash
+npm i
+# or
+yarn
+```
 
 ### Development
 
-#### Start Server NodeJS
+#### Start server NodeJS
+
 At root of project
+
 ```bash
 npm start
 # or
 yarn start
 ```
-That will run on localhost:4200
 
-#### Start Client ReactJS
+Now server is running on http://localhost:4200
+
+#### Start client ReactJS
+
 At root of project
+
 ```bash
 cd client/
 
@@ -55,23 +75,30 @@ npm start
 # or
 yarn start
 ```
-That will run on localhost:3000. On your browser, should run on port 4200
+
+Now we can open browser at http://localhost:3000.
 
 
 #### Database MongoDB
+
 At root of project
+
 ```bash
 touch .env
 ```
+
 Create file `.env` with the following line:
+
 ```bash
 URI_MONGO=mongodb://localhost/dontpad
 ```
+
 Change the URI Mongo for your production
 
-
 ### Testing and Deployment
-At root of project, run server nodeJS at port 4200 by
+
+At root of project, run server NodeJS at port 4200:
+
 ```bash
 cd client/
 
@@ -88,10 +115,12 @@ npm start
 # or 
 yarn start
 ```
-On your browser, open localhost:4200 to view the dotnpad
+
+On your browser, open http://localhost:4200 to view the dontpad application
 
 
 ## Deploy on Heroku
+
 ### Configure on Heroku
 + Login or sign up new account on heroku
 + Add new application
@@ -125,4 +154,4 @@ git push heroku master
 
 ## Donate
 
-<a href="https://www.paypal.me/harisk305/5" target="_blank"><img src="https://i.imgur.com/4bN8fdy.jpg" alt="Donate to my paypal" width=240></a>
+<a href="https://www.paypal.me/harisk305/5" target="_blank"><img src="https://i.imgur.com/4bN8fdy.jpg" alt="Donate to my paypal" width=180></a>
