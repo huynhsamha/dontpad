@@ -135,11 +135,11 @@ On your browser, open http://localhost:4200 to view the dontpad application
 
 ### Configure database MongoDB on Mongo Atlas
 
-- Login or sign up new account on Mlab
+- Login or sign up new account on Mongo Atlas
 - Create new cluster and new database
 - In the options (collections, users, ...) in tabs at new database, choose option users
 - Create a new user with difficult password
-- Get uri mongo on mlab and change `<dbuser>` and `<dbpassword>` with new user created.
+- Get uri mongo on Atlas and change `<dbuser>` and `<dbpassword>` with new user created.
 - Copy the uri to file `.env` at local directory
 - Now you can commit and deploy to heroku
 
