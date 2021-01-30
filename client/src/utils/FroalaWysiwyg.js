@@ -10,6 +10,13 @@ export const config = {
   theme: 'custom',
   indentMargin: 10,
   heightMin: window.screen.availHeight,
+  height: window.screen.availHeight,
+  autofocus: true,
+  tabSpaces: 4,
+  disableRightClick: true,
+  htmlExecuteScripts: false,
+  htmlRemoveTags: ['script', 'style', 'base', 'iframe'],
+  htmlAllowComments: false,
   fontFamily: {
     'Roboto, sans-serif': 'Roboto',
     'Quicksand, sans-serif': 'Quicksand',

@@ -34,7 +34,6 @@ class App extends Component {
         <Router>
           <div>
             <Switch>
-              {/* <Route exact path="/loading" component={Loading} /> */}
               <Route exact path="/" component={Home} />
               <Route exact path="/*/view" component={Viewer} />
               <Route component={Editor} />
