@@ -1,7 +1,7 @@
 /*!
- * froala_editor v2.9.1 (https://www.froala.com/wysiwyg-editor)
+ * froala_editor v2.9.8 (https://www.froala.com/wysiwyg-editor)
  * License https://froala.com/wysiwyg-editor/terms/
- * Copyright 2014-2018 Froala Labs
+ * Copyright 2014-2020 Froala Labs
  */
 
 (function (factory) {
@@ -89,7 +89,22 @@ $.FE.LANGUAGE['de'] = {
 
     // Lists
     "Ordered List": "Nummerierte Liste",
+    "Default": "Standard",
+    "Lower Alpha": "Kleinbuchstaben",
+    "Lower Greek": "Griechisches Alphabet",
+    "Lower Roman": "Römische Ziffern (klein)",
+    "Upper Alpha": "Grossbuchstaben",
+    "Upper Roman": "Römische Ziffern (gross)",
+
     "Unordered List": "Unnummerierte Liste",
+    "Circle": "Kreis",
+    "Disc": "Kreis gefüllt",
+    "Square": "Quadrat",
+
+    // Line height
+    "Line Height": "Zeilenhöhe",
+    "Single": "Einfach",
+    "Double": "Doppelt",
 
     // Indent
     "Decrease Indent": "Einzug verkleinern",

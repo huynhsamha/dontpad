@@ -1,7 +1,7 @@
 /*!
- * froala_editor v2.9.1 (https://www.froala.com/wysiwyg-editor)
+ * froala_editor v2.9.8 (https://www.froala.com/wysiwyg-editor)
  * License https://froala.com/wysiwyg-editor/terms/
- * Copyright 2014-2018 Froala Labs
+ * Copyright 2014-2020 Froala Labs
  */
 
 (function (factory) {
@@ -85,7 +85,22 @@ $.FE.LANGUAGE['vi'] = {
 
     // Lists
     "Ordered List": "Danh s\u00E1ch theo th\u1EE9 t\u1EF1",
+    "Default": "Mặc định",
+    "Lower Alpha": "Hạ alpha",
+    "Lower Greek": "Hạ Hy Lạp",
+    "Lower Roman": "Hạ La Mã",
+    "Upper Alpha": "Alpha trên",
+    "Upper Roman": "Thượng lưu La Mã",
+
     "Unordered List": "Danh s\u00E1ch li\u1EC7t k\u00EA",
+    "Circle": "Vòng tròn",
+    "Disc": "Đĩa",
+    "Square": "Quảng trường",
+
+    // Line height
+    "Line Height": "Chiều cao giữa các dòng",
+    "Single": "Độc thân",
+    "Double": "Gấp đôi",
 
     // Indent
     "Decrease Indent": "Gi\u1EA3m c\u0103n l\u1EC1",

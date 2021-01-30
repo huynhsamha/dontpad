@@ -1,7 +1,7 @@
 /*!
- * froala_editor v2.9.1 (https://www.froala.com/wysiwyg-editor)
+ * froala_editor v2.9.8 (https://www.froala.com/wysiwyg-editor)
  * License https://froala.com/wysiwyg-editor/terms/
- * Copyright 2014-2018 Froala Labs
+ * Copyright 2014-2020 Froala Labs
  */
 
 (function (factory) {
@@ -89,7 +89,22 @@ $.FE.LANGUAGE['ru'] = {
 
     // Lists
     "Ordered List": "\u041d\u0443\u043c\u0435\u0440\u043e\u0432\u0430\u043d\u043d\u044b\u0439 \u0441\u043f\u0438\u0441\u043e\u043a",
+    "Default": "По умолчанию",
+    "Lower Alpha": "Низшая альфа",
+    "Lower Greek": "Нижний греческий",
+    "Lower Roman": "Нижний римлянин",
+    "Upper Alpha": "Верхняя альфа",
+    "Upper Roman": "Верховный римлянин",
+
     "Unordered List": "\u041c\u0430\u0440\u043a\u0438\u0440\u043e\u0432\u0430\u043d\u043d\u044b\u0439 \u0441\u043f\u0438\u0441\u043e\u043a",
+    "Circle": "Круг",
+    "Disc": "Диск",
+    "Square": "Площадь",
+
+    // Line height
+    "Line Height": "Высота линии",
+    "Single": "Одинарный",
+    "Double": "Двойной",
 
     // Indent
     "Decrease Indent": "\u0423\u043c\u0435\u043d\u044c\u0448\u0438\u0442\u044c \u043e\u0442\u0441\u0442\u0443\u043f",
@@ -311,9 +326,9 @@ $.FE.LANGUAGE['ru'] = {
 
     // Word Paste.
     "The pasted content is coming from a Microsoft Word document. Do you want to keep the format or clean it up?": "Вы пытаетесь вставить текст из документа Microsoft Word. Вы хотите сохранить или очистить формат?",
-    "Keep": "Сохранить",
+    "Keep": "Оставить",
     "Clean": "Очистить",
-    "Word Paste Detected": "Обнаружена вставка отформатированного текста"
+    "Word Paste Detected": "Обнаружено копирование из Word"
   },
   direction: "ltr"
 };

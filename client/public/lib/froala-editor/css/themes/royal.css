@@ -1,7 +1,7 @@
 /*!
- * froala_editor v2.9.1 (https://www.froala.com/wysiwyg-editor)
+ * froala_editor v2.9.8 (https://www.froala.com/wysiwyg-editor)
  * License https://froala.com/wysiwyg-editor/terms/
- * Copyright 2014-2018 Froala Labs
+ * Copyright 2014-2020 Froala Labs
  */
 
 .clearfix::after {
@@ -111,11 +111,18 @@
   box-shadow: 0 -1px 3px rgba(0, 0, 0, 0.12), 0 -1px 1px 1px rgba(0, 0, 0, 0.16);
 }
 @media (min-width: 992px) {
+  .royal-theme .fr-box.fr-document {
+    min-width: calc(21cm + 30px + 30px);
+  }
+  .royal-theme .fr-box.fr-document .fr-wrapper {
+    padding: 30px;
+  }
   .royal-theme .fr-box.fr-document .fr-wrapper .fr-element {
     margin: auto;
     -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 1px 1px rgba(0, 0, 0, 0.16);
     -moz-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 1px 1px rgba(0, 0, 0, 0.16);
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 1px 1px rgba(0, 0, 0, 0.16);
+    z-index: auto;
   }
 }
 .royal-theme .fr-sticky-on.fr-sticky-ios {
@@ -205,7 +212,7 @@
 .royal-theme.fr-popup .fr-color-hex-layer .fr-input-line {
   padding: 8px 0 0;
 }
-.royal-theme.fr-popup .fr-color-hex-layer .fr-action-buttons button {
+.royal-theme.fr-popup .fr-color-hex-layer .fr-action-buttons button.fr-command {
   background-color: #553982;
   border-radius: 2px;
   -moz-border-radius: 2px;
@@ -214,7 +221,7 @@
   -webkit-background-clip: padding-box;
   background-clip: padding-box;
 }
-.royal-theme.fr-popup .fr-color-hex-layer .fr-action-buttons button:hover {
+.royal-theme.fr-popup .fr-color-hex-layer .fr-action-buttons button.fr-command:hover {
   background-color: #3e295f;
 }
 .royal-theme.fr-popup .fr-color-set {
@@ -384,13 +391,15 @@
 .royal-theme.fr-popup .fr-image-progress-bar-layer > div.fr-loader.fr-indeterminate span {
   top: 0;
 }
-.royal-theme.fr-modal-head .fr-modal-head-line i.fr-modal-more {
+.royal-theme.fr-modal-head .fr-modal-head-line i.fr-modal-more,
+.royal-theme.fr-modal-head .fr-modal-head-line svg.fr-modal-more {
   -webkit-transition: padding 0.2s ease 0s, width 0.2s ease 0s, opacity 0.2s ease 0s;
   -moz-transition: padding 0.2s ease 0s, width 0.2s ease 0s, opacity 0.2s ease 0s;
   -ms-transition: padding 0.2s ease 0s, width 0.2s ease 0s, opacity 0.2s ease 0s;
   -o-transition: padding 0.2s ease 0s, width 0.2s ease 0s, opacity 0.2s ease 0s;
 }
-.royal-theme.fr-modal-head .fr-modal-head-line i.fr-modal-more.fr-not-available {
+.royal-theme.fr-modal-head .fr-modal-head-line i.fr-modal-more.fr-not-available,
+.royal-theme.fr-modal-head .fr-modal-head-line svg.fr-modal-more.fr-not-available {
   opacity: 0;
   width: 0;
   padding: 12px 0;
@@ -1064,6 +1073,9 @@
 .royal-theme.fr-modal .fr-modal-wrapper .fr-modal-head h4 {
   margin: 0;
   font-weight: 400;
+}
+.royal-theme.fr-modal .fr-modal-wrapper div.fr-modal-body {
+  overflow-y: auto;
 }
 .royal-theme.fr-modal .fr-modal-wrapper div.fr-modal-body:focus {
   outline: 0;

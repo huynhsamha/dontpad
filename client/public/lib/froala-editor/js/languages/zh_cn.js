@@ -1,7 +1,7 @@
 /*!
- * froala_editor v2.9.1 (https://www.froala.com/wysiwyg-editor)
+ * froala_editor v2.9.8 (https://www.froala.com/wysiwyg-editor)
  * License https://froala.com/wysiwyg-editor/terms/
- * Copyright 2014-2018 Froala Labs
+ * Copyright 2014-2020 Froala Labs
  */
 
 (function (factory) {
@@ -89,7 +89,22 @@ $.FE.LANGUAGE['zh_cn'] = {
 
     // Lists
     "Ordered List": "编号",
+    "Default": "默认",
+    "Lower Alpha": "低α",
+    "Lower Greek": "下希腊",
+    "Lower Roman": "较低的罗马",
+    "Upper Alpha": "上阿尔法",
+    "Upper Roman": "上罗马",
+
     "Unordered List": "项目符号",
+    "Circle": "圈",
+    "Disc": "圆盘",
+    "Square": "广场",
+
+    // Line height
+    "Line Height": "线高",
+    "Single": "单",
+    "Double": "双",
 
     // Indent
     "Decrease Indent": "减少缩进量",

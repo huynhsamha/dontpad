@@ -1,7 +1,7 @@
 /*!
- * froala_editor v2.9.1 (https://www.froala.com/wysiwyg-editor)
+ * froala_editor v2.9.8 (https://www.froala.com/wysiwyg-editor)
  * License https://froala.com/wysiwyg-editor/terms/
- * Copyright 2014-2018 Froala Labs
+ * Copyright 2014-2020 Froala Labs
  */
 
 (function (factory) {
@@ -89,7 +89,22 @@ $.FE.LANGUAGE['ro'] = {
 
     // Lists
     "Ordered List": "List\u0103 ordonat\u0103",
+    "Default": "Mod implicit",
+    "Lower Alpha": "Inferior alfa",
+    "Lower Greek": "Inferior grecesc",
+    "Lower Roman": "Inferior roman",
+    "Upper Alpha": "Alfa superioară",
+    "Upper Roman": "Superior roman",
+
     "Unordered List": "List\u0103 neordonat\u0103",
+    "Circle": "Cerc",
+    "Disc": "Disc",
+    "Square": "Pătrat",
+
+    // Line height
+    "Line Height": "Inaltimea liniei",
+    "Single": "Singur",
+    "Double": "Dubla",
 
     // Indent
     "Decrease Indent": "De-indenteaz\u0103",

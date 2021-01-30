@@ -1,7 +1,7 @@
 /*!
- * froala_editor v2.9.1 (https://www.froala.com/wysiwyg-editor)
+ * froala_editor v2.9.8 (https://www.froala.com/wysiwyg-editor)
  * License https://froala.com/wysiwyg-editor/terms/
- * Copyright 2014-2018 Froala Labs
+ * Copyright 2014-2020 Froala Labs
  */
 
 (function (factory) {
@@ -89,7 +89,22 @@ $.FE.LANGUAGE['id'] = {
 
     // Lists
     "Ordered List": "List nomor",
+    "Default": "Standar",
+    "Lower Alpha": "Alpha lebih rendah",
+    "Lower Greek": "Yunani lebih rendah",
+    "Lower Roman": "Roman rendah",
+    "Upper Alpha": "Alpha atas",
+    "Upper Roman": "Roman atas",
+
     "Unordered List": "List simbol",
+    "Circle": "Lingkaran",
+    "Disc": "Cakram",
+    "Square": "Kotak",
+
+    // Line height
+    "Line Height": "Tinggi garis",
+    "Single": "Tunggal",
+    "Double": "Dua kali lipat",
 
     // Indent
     "Decrease Indent": "Turunkan inden",
