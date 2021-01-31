@@ -1,6 +1,7 @@
 import socketIO from 'socket.io';
 import DontpadCtrl from '../controllers/dontpad';
 import conf from '../../client/src/config';
+import { generateSessionKey } from '../controllers/session';
 
 export default (server) => {
   const io = socketIO(server);
@@ -26,6 +27,7 @@ export default (server) => {
       // console.log('Join room:', socket.id, room);
       socket.join(room);
       socket.roomID = room;
+      socket.sk = generateSessionKey({ socketId: socket.id });
 
       emitUserInRoom(room);
 
