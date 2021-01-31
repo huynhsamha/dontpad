@@ -14,7 +14,9 @@ import * as msg from '../../utils/Messages';
 
 import * as actions from '../../redux/actions';
 import settings from '../../api/settings';
-import { generateSessionKey, encryptSessionKey, importServerSocketPublicKey } from '../../utils/crypto';
+import { generateSessionKey, encryptSessionKey, importServerSocketPublicKey,
+  encryptData, decryptData
+} from '../../utils/crypto';
 
 const socket = io();
 
@@ -33,6 +35,7 @@ class Editor extends Component {
 
     // fetch settings before join socket
     this.serverSettings = null;
+    this.sk = null;
 
     /**
      * Timestamp on emitting model changed to save
@@ -72,7 +75,7 @@ class Editor extends Component {
       const sk = generateSessionKey(skLength);
       const rsaPubKey = importServerSocketPublicKey({ pubKey: publicKey });
       const encryptedSK = encryptSessionKey({ sk, rsaPubKey });
-
+      this.sk = sk;
       this.room = window.location.pathname;
       socket.emit(conf.socket.client.joinRoom, {
         room: this.room,
@@ -92,17 +95,34 @@ class Editor extends Component {
     });
 
     socket.on(conf.socket.server.sendDataInRoom, (data) => {
-      const { title, model, createdAt, updatedAt } = data;
+      const rawData = decryptData({ enk: this.sk, data });
+      if (!rawData) {
+        this.handleError(new Error('Could not decrypt data from server. Please try again!'));
+        return;
+      }
+      const { title, model, createdAt, updatedAt } = rawData;
       this.props.editModel(model);
       this._updateTitle(title);
       this._updateState(createdAt, updatedAt);
     });
 
-    socket.on(conf.socket.server.modelChanged, (model) => {
+    socket.on(conf.socket.server.modelChanged, (data) => {
+      const rawData = decryptData({ enk: this.sk, data });
+      if (!rawData) {
+        this.handleError(new Error('Could not decrypt data from server. Please try again!'));
+        return;
+      }
+      const { model } = rawData;
       this.props.editModel(model);
     });
 
-    socket.on(conf.socket.server.titleChanged, (title) => {
+    socket.on(conf.socket.server.titleChanged, (data) => {
+      const rawData = decryptData({ enk: this.sk, data });
+      if (!rawData) {
+        this.handleError(new Error('Could not decrypt data from server. Please try again!'));
+        return;
+      }
+      const { title } = rawData;
       this._updateTitle(title);
     });
 
@@ -125,9 +145,11 @@ class Editor extends Component {
     this.timeShowTextSaving = Date.now();
     this.props.editModel(model);
     this.setState({ stateModel: msg.SAVING });
-    socket.emit(conf.socket.client.modelChanged, {
+    const data = {
       model, room: this.room
-    });
+    };
+    const cipher = encryptData({ enk: this.sk, data });
+    socket.emit(conf.socket.client.modelChanged, cipher);
   }
 
   _onChangeTitle = (_title) => {
@@ -136,9 +158,11 @@ class Editor extends Component {
     this.timeShowTextSaving = Date.now();
     this.setState({ stateModel: msg.SAVING });
     this._updateTitle(title);
-    socket.emit(conf.socket.client.titleChanged, {
+    const data = {
       title, room: this.room
-    });
+    };
+    const cipher = encryptData({ enk: this.sk, data });
+    socket.emit(conf.socket.client.titleChanged, cipher);
   }
 
   _updateTitle(title) {

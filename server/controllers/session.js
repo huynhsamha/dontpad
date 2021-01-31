@@ -1,4 +1,5 @@
 const crypto = require('crypto');
+const CryptoJS = require('crypto-js');
 
 // passphrase which is used to encrypt private key when generate keypair of server
 const { privateKeyPassphrase, privateKey, publicKey } = require('../config/socket');
@@ -48,6 +49,26 @@ const decryptSessionKey = function ({ encryptedSessionKey = '' }) {
   }
 };
 
+const encryptData = ({ enk, data }) => {
+  try {
+    const msg = JSON.stringify(data);
+    return CryptoJS.AES.encrypt(msg, enk).toString();
+  } catch (err) {
+    return null;
+  }
+};
+
+const decryptData = ({ enk, data }) => {
+  try {
+    const jsonStr = CryptoJS.AES.decrypt(data, enk).toString(CryptoJS.enc.Utf8);
+    return JSON.parse(jsonStr);
+  } catch (err) {
+    return null;
+  }
+};
+
 export {
-  decryptSessionKey
+  decryptSessionKey,
+  encryptData,
+  decryptData
 };

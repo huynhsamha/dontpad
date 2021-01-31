@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { BrowserRouter as Router, Redirect, Route, Switch } from 'react-router-dom';
 import Loadable from 'react-loadable';
 
 import './App.css';
@@ -27,6 +27,10 @@ const Editor = Loadable({
   timeout, delay
 });
 
+const RedirectHome = () => (
+  <Redirect to="/" />
+);
+
 class App extends Component {
   render() {
     return (
@@ -35,6 +39,8 @@ class App extends Component {
           <div>
             <Switch>
               <Route exact path="/" component={Home} />
+              <Route exact path="/api" component={RedirectHome} />
+              <Route exact path="/api/*" component={RedirectHome} />
               <Route exact path="/*/view" component={Viewer} />
               <Route component={Editor} />
             </Switch>

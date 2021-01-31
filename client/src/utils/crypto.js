@@ -21,12 +21,28 @@ const importServerSocketPublicKey = ({ pubKey }) => {
 
 const encryptSessionKey = ({ sk = '', rsaPubKey = new NodeRSA() }) => rsaPubKey.encrypt(sk, 'base64');
 
-const encryptData = ({ sk = '', data = {} }) => {
+const encryptData = ({ enk, data }) => {
+  try {
+    const msg = JSON.stringify(data);
+    return CryptoJS.AES.encrypt(msg, enk).toString();
+  } catch (err) {
+    return null;
+  }
+};
+
+const decryptData = ({ enk, data }) => {
+  try {
+    const jsonStr = CryptoJS.AES.decrypt(data, enk).toString(CryptoJS.enc.Utf8);
+    return JSON.parse(jsonStr);
+  } catch (err) {
+    return null;
+  }
 };
 
 export {
   generateSessionKey,
   importServerSocketPublicKey,
   encryptSessionKey,
-  encryptData
+  encryptData,
+  decryptData
 };
