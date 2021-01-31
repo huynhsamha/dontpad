@@ -7,7 +7,8 @@ const router = express.Router();
 router.get('/settings', (req, res, next) => {
   res.status(200).json({
     socket: {
-      publicKey: socketSetting.publicKey
+      publicKey: socketSetting.publicKey,
+      skLength: socketSetting.sessionKeyLength
     },
     server: {
       schema: serverSetting.schema,

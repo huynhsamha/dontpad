@@ -1,7 +1,8 @@
 import socketIO from 'socket.io';
 import DontpadCtrl from '../controllers/dontpad';
 import conf from '../../client/src/config';
-import { generateSessionKey } from '../controllers/session';
+import { decryptSessionKey } from '../controllers/session';
+import { sessionKeyLength } from '../config/socket';
 
 export default (server) => {
   const io = socketIO(server);
@@ -23,17 +24,22 @@ export default (server) => {
       }
     });
 
-    socket.on(conf.socket.client.joinRoom, (room) => {
+    socket.on(conf.socket.client.joinRoom, (message) => {
       // console.log('Join room:', socket.id, room);
+      if (!message) return;
+      const { room = '', sk = '' } = message;
+      if (!room || !sk || room.startsWith('/api')) return;
+      const enk = decryptSessionKey({ encryptedSessionKey: sk });
+      if (!enk || enk.length != sessionKeyLength) return;
+
       socket.join(room);
       socket.roomID = room;
-      socket.sk = generateSessionKey({ socketId: socket.id });
+      socket.sk = enk;
 
       emitUserInRoom(room);
 
       DontpadCtrl.findOneByUrl(room)
         .then((dontpad) => {
-          // console.log(dontpad);
           const { title, model, createdAt, updatedAt } = dontpad;
           socket.emit(conf.socket.server.sendDataInRoom, { title, model, createdAt, updatedAt });
         })

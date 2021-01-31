@@ -1,4 +1,7 @@
+require('dotenv').config();
+
 const crypto = require('crypto');
+const { privateKeyPassphrase } = require('../config/socket');
 
 crypto.generateKeyPair('rsa', {
   modulusLength: 2048,
@@ -10,7 +13,7 @@ crypto.generateKeyPair('rsa', {
     type: 'pkcs8',
     format: 'der',
     cipher: 'aes-256-cbc',
-    passphrase: 'This is a passphrase'
+    passphrase: privateKeyPassphrase
   }
 }, (err, publicKey, privateKey) => {
   console.log('============ Public Key ============');

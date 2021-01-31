@@ -13,6 +13,8 @@ import { config as configFrolaEditor } from '../../utils/FroalaWysiwyg';
 import * as msg from '../../utils/Messages';
 
 import * as actions from '../../redux/actions';
+import settings from '../../api/settings';
+import { generateSessionKey, encryptSessionKey, importServerSocketPublicKey } from '../../utils/crypto';
 
 const socket = io();
 
@@ -29,8 +31,8 @@ class Editor extends Component {
       stateModel: ''
     };
 
-    /** Flag checking if user changed file first */
-    // this.fileUsedToBeChanged = false;
+    // fetch settings before join socket
+    this.serverSettings = null;
 
     /**
      * Timestamp on emitting model changed to save
@@ -40,9 +42,48 @@ class Editor extends Component {
   }
 
   componentWillMount() {
-    this.room = window.location.pathname;
-    socket.emit(conf.socket.client.joinRoom, this.room);
-    this._configSocket();
+    settings.getServerSettings().then((setting) => {
+      this.serverSettings = setting;
+      if (setting) {
+        const { socket } = setting;
+        if (socket) {
+          const { publicKey, skLength } = socket;
+          if (publicKey && skLength) {
+            this.joinSocket();
+            return;
+          }
+        }
+      }
+      this.handleError(new Error('Could not get server key to exchange session key for a secure connection'));
+
+    }).catch((err) => {
+      console.log(err);
+      this.handleError(new Error('Could not get server key to exchange session key for a secure connection'));
+    });
+  }
+
+  handleError(err = new Error('Something went wrong. Please try again!')) {
+    console.log(err.message);
+  }
+
+  joinSocket() {
+    try {
+      const { publicKey, skLength } = this.serverSettings.socket;
+      const sk = generateSessionKey(skLength);
+      const rsaPubKey = importServerSocketPublicKey({ pubKey: publicKey });
+      const encryptedSK = encryptSessionKey({ sk, rsaPubKey });
+
+      this.room = window.location.pathname;
+      socket.emit(conf.socket.client.joinRoom, {
+        room: this.room,
+        sk: encryptedSK
+      });
+      this._configSocket();
+
+    } catch (err) {
+      console.log(err);
+      this.handleError(new Error('Could not exchange session key to server for a secure connection'));
+    }
   }
 
   _configSocket = () => {
@@ -73,20 +114,6 @@ class Editor extends Component {
           this.setState({ stateModel: msg.SAVE_ALL });
         }, 500);
       }
-      // if (this.fileUsedToBeChanged) {
-      //   // this is reality that file changed by user
-      //   // not take flash show saving...
-      //   if (Date.now() - this.timeShowTextSaving > 500) {
-      //     this.setState({ stateModel: msg.SAVE_ALL });
-      //   } else {
-      //     setTimeout(() => {
-      //       this.setState({ stateModel: msg.SAVE_ALL });
-      //     }, 500);
-      //   }
-      // } else {
-      //   // toggle flag for changes
-      //   this.fileUsedToBeChanged = true;
-      // }
     });
 
     socket.on(conf.socket.server.error, () => {

@@ -56,8 +56,8 @@
     "url": "https://github.com/huynhsamha/dontpad/issues"
   },
   "engines": {
-    "node": ">=6.10.0",
-    "npm": ">=3.10.8"
+    "node": ">=12.19.0",
+    "npm": ">=6.14.8"
   },
   "contributors": [
     "huynhsamha"
