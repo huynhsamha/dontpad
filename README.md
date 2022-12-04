@@ -1,6 +1,14 @@
 # dontpad
 
-DEPRECATED
+## DEPRECATED
+
+**Recently Heroku has stopped providing free deployment, and I don't have time to maintain this project anymore.**
+
+**If you need to retrieve the information that you have saved on https://dontpad.herokuapp.com, you can contact me via email huynhha12798@gmail.com with subject "[dontpad] ...", I will resend that content from the database.**
+
+**Sorry for the inconvenience.**
+
+---
 
 Advanced Dontpad - Editor online without identity
 
