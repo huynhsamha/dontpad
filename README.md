@@ -1,5 +1,7 @@
 # dontpad
 
+DEPRECATED
+
 Advanced Dontpad - Editor online without identity
 
 Deploy on Heroku App: [https://dontpad.herokuapp.com/](https://dontpad.herokuapp.com/)
@@ -155,7 +157,3 @@ git push heroku master
 ```
 
 - Now, you can open the herokuapp to view your achievement.
-
-## Donate
-
-<a href="https://www.paypal.me/harisk305/5" target="_blank"><img src="https://i.imgur.com/4bN8fdy.jpg" alt="Donate to my paypal" width=180></a>
